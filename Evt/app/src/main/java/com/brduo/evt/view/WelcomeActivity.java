@@ -1,4 +1,4 @@
-package com.brduo.evt;
+package com.brduo.evt.view;
 
 
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.brduo.evt.PreferenceManager;
+import com.brduo.evt.R;
 
 public class WelcomeActivity extends AppCompatActivity {
     private ViewPager viewPager;
