@@ -51,6 +51,7 @@ public class EventsListActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         this.events = new ArrayList<>();
         events.add(new Event(
+                4,
                 "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
@@ -59,12 +60,14 @@ public class EventsListActivity extends AppCompatActivity {
         ));
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         events.add(new Event(
+                5,
                 "2º PARAÍBA EXPO TATTOO",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
                 cal,
                 "https://www.facebook.com/events/346149145800088/"
         ));events.add(new Event(
+                6,
                 "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
@@ -73,12 +76,14 @@ public class EventsListActivity extends AppCompatActivity {
         ));
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         events.add(new Event(
+                7,
                 "2º PARAÍBA EXPO TATTOO",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
                 cal,
                 "https://www.facebook.com/events/346149145800088/"
         ));events.add(new Event(
+                8,
                 "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
@@ -87,20 +92,7 @@ public class EventsListActivity extends AppCompatActivity {
         ));
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         events.add(new Event(
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));events.add(new Event(
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
-                Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
-        ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
+                9,
                 "2º PARAÍBA EXPO TATTOO",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
                 "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",

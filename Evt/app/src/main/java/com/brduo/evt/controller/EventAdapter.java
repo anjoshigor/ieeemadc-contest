@@ -2,6 +2,7 @@ package com.brduo.evt.controller;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.brduo.evt.R;
 import com.brduo.evt.model.Event;
+import com.brduo.evt.view.EventActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -24,12 +26,16 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
-    public static class EventViewHolder extends RecyclerView.ViewHolder {
-        CardView eventCard;
-        TextView eventName, eventAddress, eventDate;
-        ImageView eventImage;
-        TextView distance;
+    public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        protected CardView eventCard;
+        protected TextView eventName, eventAddress, eventDate;
+        protected ImageView eventImage;
+        protected TextView distance;
+        protected Intent eventIntent;
 
+        //To be passed to event activity
+        protected int Id;
+        protected String Name;
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -41,10 +47,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             distance = (TextView) itemView.findViewById(R.id.event_distance);
             eventImage = (ImageView) itemView.findViewById(R.id.event_image);
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+
+            eventIntent = new Intent(v.getContext(), EventActivity.class);
+            eventIntent.putExtra("id", this.Id);
+            eventIntent.putExtra("name", this.Name);
+            v.getContext().startActivity(eventIntent);
         }
     }
 
-    List<Event> events;
+    public List<Event> events;
+
 
     public EventAdapter(List<Event> events) {
         this.events = events;
@@ -56,6 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         EventViewHolder evh = new EventViewHolder(v);
         return evh;
     }
+
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
@@ -69,20 +89,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Picasso.with(imageContext) // Specify the application context
                 .load(events.get(position).getImagePath()) // Image url to load from
                 .into(holder.eventImage); // ImageView to display image
-        holder.eventName.setText(shortenText(events.get(position).getName(), charSize+15));
+        holder.eventName.setText(shortenText(events.get(position).getName(), charSize + 15));
         holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));
         holder.eventDate.setText(date);
         holder.distance.setText("undefined");
-    }
 
-    private String shortenText(String text, int size){
-        if(text.length() > size){
-            Log.d("EventAdapter","Shorten the text: "+ text);
-            text = text.substring(0,size);
-            text = text.concat("...");
-        }
-
-        return text;
+        holder.Id = events.get(position).getId();
+        holder.Name = events.get(position).getName();
     }
 
     @Override
@@ -93,6 +106,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    private String shortenText(String text, int size) {
+        if (text.length() > size) {
+            Log.d("EventAdapter", "Shorten the text: " + text);
+            text = text.substring(0, size);
+            text = text.concat("...");
+        }
+
+        return text;
     }
 
 }

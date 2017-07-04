@@ -11,13 +11,23 @@ public class Event {
     private String name, address, imagePath;
     private Calendar date;
     private String shareLink;
+    private int Id;
 
-    public Event(String name, String address, String imagePath, Calendar date, String shareLink) {
+    public Event(int id, String name, String address, String imagePath, Calendar date, String shareLink) {
+        this.Id = id;
         this.name = name;
         this.address = address;
         this.imagePath = imagePath;
         this.date = date;
         this.shareLink = shareLink;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getName() {
