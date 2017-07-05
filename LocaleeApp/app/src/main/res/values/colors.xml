@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_alpha50">#800F0F0F</color>
-    <color name="colorPrimary">#f64c73</color>
-    <color name="colorPrimaryDark">#f64c73</color>
-    <color name="colorAccent">#3F51B5</color>
+    <color name="colorPrimary">#3D4377</color>
+    <color name="colorPrimaryDark">#e0e0e0</color>
+    <color name="colorAccent">#F46665</color>
     <!-- Slide settings -->
-    <!-- Screens background color -->
+    <!-- Screens background colo    r -->
     <color name="bg_screen1">#f64c73</color>
     <color name="bg_screen2">#20d2bb</color>
     <color name="bg_screen3">#3395ff</color>

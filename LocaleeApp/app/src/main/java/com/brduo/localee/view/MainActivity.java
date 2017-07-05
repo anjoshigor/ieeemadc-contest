@@ -1,6 +1,7 @@
 package com.brduo.localee.view;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -9,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.brduo.localee.R;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_events:
+                    EventsListFragment eventsListFragment = new EventsListFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, eventsListFragment).commit();
                     return true;
                 case R.id.navigation_map:
                     return true;
@@ -52,10 +56,16 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        if(Build.VERSION.SDK_INT >= 23) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         disableShiftMode(navigation);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new EventsListFragment()).commit();
     }
 
     private void launchTutorial() {

@@ -29,7 +29,7 @@
             android:label="@string/title_activity_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.EventsListActivity"
+            android:name=".view.EventsListFragment"
             android:label="@string/title_activity_event_list"></activity>
     </application>
 
