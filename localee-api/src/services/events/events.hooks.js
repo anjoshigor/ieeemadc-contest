@@ -1,6 +1,8 @@
 
 
-const populateEvents = require('../../hooks/populate-events');
+
+const attachEvent = require('../../hooks/attach-event');
+
 
 module.exports = {
   before: {
@@ -15,9 +17,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [populateEvents()],
+    find: [],
     get: [],
-    create: [],
+    create: [attachEvent()],
     update: [],
     patch: [],
     remove: []

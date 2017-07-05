@@ -1,12 +1,12 @@
 const assert = require('assert');
-const populateEvents = require('../../src/hooks/populate-events');
+const attachEvent = require('../../src/hooks/attach-event');
 
-describe('\'populateEvents\' hook', () => {
+describe('\'attach-event\' hook', () => {
   it('runs the hook', () => {
     // A mock hook object
     const mock = {};
     // Initialize our hook with no options
-    const hook = populateEvents();
+    const hook = attachEvent();
 
     // Run the hook function (which returns a promise)
     // and compare the resulting hook object
