@@ -2,8 +2,10 @@ package com.brduo.localee.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,10 @@ public class EventsListFragment extends Fragment {
        // setContentView(R.layout.fragment_events_list);
 
         View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
+
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Where When What");
 
         eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
