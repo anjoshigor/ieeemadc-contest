@@ -1,5 +1,6 @@
 package com.brduo.localee.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,8 +34,10 @@ public class EventsListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.color_title_toolbar));
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Where When What");
+        setHasOptionsMenu(true);
 
         eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
@@ -46,6 +51,13 @@ public class EventsListFragment extends Fragment {
         eventListRecycler.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     void fakeData() {

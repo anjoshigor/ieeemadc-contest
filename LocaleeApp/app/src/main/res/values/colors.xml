@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_alpha50">#800F0F0F</color>
-    <color name="colorPrimary">#3D4377</color>
+    <color name="colorPrimary">#F46665</color>
     <color name="colorPrimaryDark">#e0e0e0</color>
-    <color name="colorAccent">#F46665</color>
-
+    <color name="colorAccent">#3D4377</color>
+    <color name="color_title_toolbar">#757575</color>
     <!-- Slide settings -->
     <!-- Screens background colo    r -->
     <color name="bg_screen1">#f64c73</color>
