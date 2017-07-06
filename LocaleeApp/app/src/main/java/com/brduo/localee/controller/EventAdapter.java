@@ -34,7 +34,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         protected Intent eventIntent;
 
         //To be passed to event activity
-        protected int Id;
+        protected String Id;
         protected String Name;
 
         EventViewHolder(View itemView) {
@@ -80,22 +80,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         String date;
-        Calendar cal = events.get(position).getDate();
+        Calendar cal = events.get(position).date;
         Context imageContext = holder.eventImage.getContext();
         int charSize = imageContext.getResources().getInteger(R.integer.max_characters);
         date = cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH);
 
         //binding
         Picasso.with(imageContext) // Specify the application context
-                .load(events.get(position).getImagePath()) // Image url to load from
+                .load(events.get(position).photoUrl) // Image url to load from
                 .into(holder.eventImage); // ImageView to display image
-        holder.eventName.setText(shortenText(events.get(position).getName(), charSize + 15));
-        holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));
+        holder.eventName.setText(shortenText(events.get(position).name, charSize + 15));
+        holder.eventAddress.setText(shortenText(events.get(position).address, charSize));
         holder.eventDate.setText(date);
         holder.distance.setText("undefined");
 
-        holder.Id = events.get(position).getId();
-        holder.Name = events.get(position).getName();
+        holder.Id = events.get(position)._id;
+        holder.Name = events.get(position).name;
     }
 
     @Override

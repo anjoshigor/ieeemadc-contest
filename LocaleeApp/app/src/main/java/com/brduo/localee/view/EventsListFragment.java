@@ -4,17 +4,27 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.brduo.localee.controller.EventAdapter;
 import com.brduo.localee.R;
+import com.brduo.localee.controller.EventsController;
+import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.Event;
+import com.brduo.localee.model.EventResponse;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EventsListFragment extends Fragment {
 
@@ -24,8 +34,8 @@ public class EventsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.fragment_events_list);
-
+        // setContentView(R.layout.fragment_events_list);
+        events = new ArrayList<>();
         View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
         eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
@@ -34,14 +44,44 @@ public class EventsListFragment extends Fragment {
         eventListRecycler.setHasFixedSize(true);
         eventListRecycler.setLayoutManager(layoutManager);
 
-        fakeData();
+        getAllEvents();
 
         EventAdapter adapter = new EventAdapter(events);
         eventListRecycler.setAdapter(adapter);
 
+
         return rootView;
     }
 
+    void getAllEvents() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(LocaleeAPI.LOCALEE_BASE_URL)
+                .build();
+
+        LocaleeAPI api = retrofit.create(LocaleeAPI.class);
+
+        Call<EventResponse> call = api.getEvents();
+        call.enqueue(new Callback<EventResponse>() {
+            @Override
+            public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
+                if (response.isSuccessful()) {
+                    for (Event event : response.body().data) {
+                        events.add(event);
+                    }
+                } else {
+                    Log.e("RETROFIT", "Erro na listagem de eventos");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EventResponse> call, Throwable t) {
+                t.printStackTrace();
+                Log.e("RETROFIT", t.getMessage());
+            }
+        });
+    }
+/*
     void fakeData() {
         Calendar cal = Calendar.getInstance();
         this.events = new ArrayList<>();
@@ -94,7 +134,7 @@ public class EventsListFragment extends Fragment {
                 cal,
                 "https://www.facebook.com/events/346149145800088/"
         ));
-    }
+    }*/
 //
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
