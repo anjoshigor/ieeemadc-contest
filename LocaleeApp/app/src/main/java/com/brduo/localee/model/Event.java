@@ -1,5 +1,7 @@
 package com.brduo.localee.model;
 
+import android.util.Pair;
+
 import java.util.Calendar;
 
 /**
@@ -7,66 +9,30 @@ import java.util.Calendar;
  */
 
 public class Event {
-    private String name, address, imagePath;
-    private Calendar date;
-    private String shareLink;
-    private int Id;
 
-    public Event(int id, String name, String address, String imagePath, Calendar date, String shareLink) {
-        this.Id = id;
+    public String _id;
+    public String name;
+    public String address;
+    public String description;
+    public String category;
+    public Pair<Integer, Integer> coords;
+    public String photoUrl;
+    public Calendar date;
+    public UserSimplified createdBy;
+    public Calendar updatedAt;
+    public Calendar createdAt;
+
+    public Event(String _id, String name, String address, String description, String category, Pair<Integer, Integer> coords, String photoUrl, Calendar date, UserSimplified ceratedBy, Calendar updatedAt, Calendar createdAt) {
+        this._id = _id;
         this.name = name;
         this.address = address;
-        this.imagePath = imagePath;
+        this.description = description;
+        this.category = category;
+        this.coords = coords;
+        this.photoUrl = photoUrl;
         this.date = date;
-        this.shareLink = shareLink;
+        this.createdBy = ceratedBy;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
-
-    public String getShareLink() {
-        return shareLink;
-    }
-
-    public void setShareLink(String shareLink) {
-        this.shareLink = shareLink;
-    }
-
 }
