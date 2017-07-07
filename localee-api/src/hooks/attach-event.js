@@ -5,7 +5,7 @@ const logger = require('winston');
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return function (hook) {
     const event = hook.result;
-    const user_id = event.createdBy.user._id;
+    const user_id = event.createdBy._id;
 
     logger.info('event_id: ' + event._id);
     logger.info('user_id: ' + user_id);
