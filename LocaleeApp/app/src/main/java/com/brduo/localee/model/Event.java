@@ -1,9 +1,10 @@
 package com.brduo.localee.model;
 
-import android.util.Pair;
 
 import java.util.Date;
 import java.util.Date;
+import com.brduo.localee.util.EventCategory;
+
 
 /**
  * Created by anjoshigor on 25/06/17.
@@ -34,4 +35,5 @@ public class Event {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
+
 }

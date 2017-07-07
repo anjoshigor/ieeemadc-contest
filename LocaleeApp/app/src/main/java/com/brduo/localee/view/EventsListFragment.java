@@ -23,6 +23,7 @@ import com.brduo.localee.R;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.Event;
+import com.brduo.localee.util.EventCategory;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.util.LocationTracker;
 import com.google.gson.Gson;
@@ -60,7 +61,7 @@ public class EventsListFragment extends Fragment {
 
         locationTracker = new LocationTracker(getContext());
 
-        if(!locationTracker.hasLocation()){
+        if (!locationTracker.hasLocation()) {
             locationTracker.showGPSActivation();
         }
 
@@ -113,89 +114,5 @@ public class EventsListFragment extends Fragment {
             }
         });
     }
-
-
-    /*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-    }
-
-
-    void fakeData() {
-        Calendar cal = Calendar.getInstance();
-        this.events = new ArrayList<>();
-        events.add(new Event(
-                4,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
-                Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
-        ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
-                5,
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));events.add(new Event(
-                6,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
-                Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
-        ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
-                7,
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));events.add(new Event(
-                8,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
-                Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
-        ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
-                9,
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));
-    }*/
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_events_list, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }
+

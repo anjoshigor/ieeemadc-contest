@@ -18,7 +18,7 @@ public class EventActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView eventImage;
     Intent intent;
-    int id;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class EventActivity extends AppCompatActivity {
 
         //Consumir servico do evento especifico
         intent = getIntent();
-        id = intent.getIntExtra("id", -1);
+        id = intent.getStringExtra("id");
         String eventName = intent.getStringExtra("name");
 
-        if(id == -1){
+        if(id == null){
             Log.e("EventActivity","Error when moving event id fto EventActivity through extra");
             Log.i("EventActivity", "Consuming full details for event");
             //Consumir servico com id

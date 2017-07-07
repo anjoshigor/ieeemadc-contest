@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_add:
                     return true;
-                case R.id.navigation_settings:
+                case R.id.navigation_user:
                     return true;
             }
             return false;
