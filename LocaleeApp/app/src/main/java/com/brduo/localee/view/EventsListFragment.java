@@ -1,11 +1,20 @@
 package com.brduo.localee.view;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +24,9 @@ import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
+import com.brduo.localee.util.LocationTracker;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,6 +42,8 @@ public class EventsListFragment extends Fragment {
 
     private List<Event> events;
     private RecyclerView eventListRecycler;
+    private EventAdapter adapter;
+    private LocationTracker locationTracker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -38,24 +52,42 @@ public class EventsListFragment extends Fragment {
         events = new ArrayList<>();
         View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.color_title_toolbar));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Where When What");
+        setHasOptionsMenu(true);
+
+        locationTracker = new LocationTracker(getContext());
+
+        if(!locationTracker.hasLocation()){
+            locationTracker.showGPSActivation();
+        }
+
+
         eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
 
         eventListRecycler.setHasFixedSize(true);
         eventListRecycler.setLayoutManager(layoutManager);
+        adapter = new EventAdapter(events, locationTracker.getLocation(), getContext());
+        eventListRecycler.setAdapter(adapter);
+
 
         getAllEvents();
-
-        EventAdapter adapter = new EventAdapter(events);
-        eventListRecycler.setAdapter(adapter);
 
 
         return rootView;
     }
 
     void getAllEvents() {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(LocaleeAPI.LOCALEE_BASE_URL)
                 .build();
 
@@ -66,9 +98,9 @@ public class EventsListFragment extends Fragment {
             @Override
             public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
                 if (response.isSuccessful()) {
-                    for (Event event : response.body().data) {
-                        events.add(event);
-                    }
+                    events = response.body().data;
+                    adapter.events = events;
+                    eventListRecycler.setAdapter(adapter);
                 } else {
                     Log.e("RETROFIT", "Erro na listagem de eventos");
                 }
@@ -81,7 +113,17 @@ public class EventsListFragment extends Fragment {
             }
         });
     }
-/*
+
+
+    /*
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+
     void fakeData() {
         Calendar cal = Calendar.getInstance();
         this.events = new ArrayList<>();
