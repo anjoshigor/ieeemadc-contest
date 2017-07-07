@@ -1,6 +1,5 @@
 package com.brduo.localee.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import com.brduo.localee.controller.EventAdapter;
 import com.brduo.localee.R;
 import com.brduo.localee.model.Event;
+import com.brduo.localee.util.EventCategory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,53 +65,57 @@ public class EventsListFragment extends Fragment {
         this.events = new ArrayList<>();
         events.add(new Event(
                 4,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
+                "Concerto Tributo a Belchior",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
+                "http://www.barcelonacheckin.com/img/stored_images/barcelona/articles_images/small-nochevieja-disco.jpg",
                 Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
+                "https://www.facebook.com/events/1173293659465739/",
+                EventCategory.PARTY
         ));
         cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         events.add(new Event(
                 5,
-                "2º PARAÍBA EXPO TATTOO",
+                "Comida Caseira Dona Benta",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
+                "http://www.cheryltiu.com/wp-content/uploads/2015/01/For-the-Wallpaper-City-Guide-Launch-Chino-chef-Erik-Idos-created-Pinoy-specials-for-specifically-for-the-event.jpg",
                 cal,
-                "https://www.facebook.com/events/346149145800088/"
+                "https://www.facebook.com/events/346149145800088/",
+                EventCategory.FOOD
         ));events.add(new Event(
                 6,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
+                "Comic Con Experience",
                 "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
+                "https://realnerd.com.br/wp-content/uploads/2016/12/comic-con-experience-logo-wallpaper-32821321.jpg",
                 Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
+                "https://www.facebook.com/events/1173293659465739/",
+                EventCategory.ANIME
+
         ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
-                7,
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));events.add(new Event(
-                8,
-                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
-                Calendar.getInstance(),
-                "https://www.facebook.com/events/1173293659465739/"
-        ));
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        events.add(new Event(
-                9,
-                "2º PARAÍBA EXPO TATTOO",
-                "Espaço Cultural De João Pessoa - Funesc Pb",
-                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
-                cal,
-                "https://www.facebook.com/events/346149145800088/"
-        ));
+//        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+//        events.add(new Event(
+//                7,
+//                "2º PARAÍBA EXPO TATTOO",
+//                "Espaço Cultural De João Pessoa - Funesc Pb",
+//                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
+//                cal,
+//                "https://www.facebook.com/events/346149145800088/"
+//        ));events.add(new Event(
+//                8,
+//                "Concerto-Tributo a Belchior no Espaço Cultural da Paraíba",
+//                "Espaço Cultural De João Pessoa - Funesc Pb",
+//                "http://funesc.pb.gov.br/wp-content/uploads/2017/06/belchioralucinacao1-800x445.jpg",
+//                Calendar.getInstance(),
+//                "https://www.facebook.com/events/1173293659465739/"
+//        ));
+//        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+//        events.add(new Event(
+//                9,
+//                "2º PARAÍBA EXPO TATTOO",
+//                "Espaço Cultural De João Pessoa - Funesc Pb",
+//                "https://www.wscom.com.br/arqs/noticias/480_350/201606280223480000003593.jpg",
+//                cal,
+//                "https://www.facebook.com/events/346149145800088/"
+//        ));
     }
 //
 //    @Override

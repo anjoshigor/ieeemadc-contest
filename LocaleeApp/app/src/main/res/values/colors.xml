@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_alpha50">#800F0F0F</color>
-    <color name="colorPrimary">#F46665</color>
+    <color name="white_alpha87">#DEFFFFFF</color>
+
+    <color name="purple_alpha87">#DDc873f4</color>
+    <color name="blue_alpha87">#DD20d2bb</color>
+    <color name="yellow_alpha87">#DDFFA000</color>
+
+    <color name="colorPrimary">#3D4377</color>
     <color name="colorPrimaryDark">#e0e0e0</color>
-    <color name="colorAccent">#3D4377</color>
+    <color name="colorAccent">#F46665</color>
     <color name="color_title_toolbar">#757575</color>
     <!-- Slide settings -->
     <!-- Screens background colo    r -->

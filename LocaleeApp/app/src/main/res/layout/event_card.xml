@@ -1,96 +1,92 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/event_card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/image_card_height"
+            android:layout_height="250dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/event_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/event_image"
-            android:layout_alignEnd="@+id/event_image"
-            android:background="@color/cardview_dark_background"
-            android:padding="8dp"
-            android:text="Distance"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/desc_event"
+            android:layout_alignBottom="@+id/event_image"
+            android:background="@color/white_alpha87"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/image_card_height">
 
-        <!-- This goes left-->
-        <TextView
-            android:id="@+id/event_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/event_image"
-            android:text="Date"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Name"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-        <!-- This goes right-->
-        <ImageView
-            android:id="@+id/share_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/ic_share_black_24dp"
-            android:layout_below="@id/event_image"
-            android:layout_alignParentEnd="true" />
 
-        <View
-            android:id="@+id/left_divider"
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/event_image"
-            android:layout_margin="8dp"
-            android:layout_toRightOf="@id/event_date" />
+            <ImageView
+                android:id="@+id/place_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_event_note_black_18dp"
+                android:layout_alignLeft="@+id/event_name"
+                android:layout_below="@+id/event_name"
+                android:backgroundTint="@color/colorPrimary"/>
 
-        <View
-            android:id="@+id/right_divider"
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/event_image"
-            android:layout_margin="8dp"
-            android:layout_toLeftOf="@id/share_icon" />
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/place_icon"
+                android:layout_below="@+id/event_name"
+                android:text="Event date" />
 
-        <TextView
-            android:id="@+id/event_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/event_image"
-            android:layout_toLeftOf="@id/right_divider"
-            android:layout_toRightOf="@+id/left_divider"
-            android:text="Event Name"
-            android:layout_marginBottom="16dp"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/id_near_you"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="4dp"
+                android:paddingTop="10dp"
+                android:background="@color/purple_alpha87"
+                android:gravity="center"
+                android:text="near you"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/place_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/event_name"
-            android:layout_toRightOf="@id/left_divider"
-            android:background="@drawable/ic_place_black_24dp" />
+            <TextView
+                android:id="@+id/event_distance"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/id_near_you"
+                android:layout_marginEnd="4dp"
+                android:background="@color/purple_alpha87"
+                android:gravity="center_horizontal"
+                android:text="Distance"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/event_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/place_icon"
-            android:layout_toLeftOf="@id/right_divider"
-            android:layout_toEndOf="@+id/place_icon"
-            android:text="Event address" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

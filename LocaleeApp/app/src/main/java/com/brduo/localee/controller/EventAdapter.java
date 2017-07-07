@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.brduo.localee.R;
 import com.brduo.localee.model.Event;
+import com.brduo.localee.util.AlphaBackgroundCategory;
 import com.brduo.localee.view.EventActivity;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +31,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         protected CardView eventCard;
         protected TextView eventName, eventAddress, eventDate;
         protected ImageView eventImage;
-        protected TextView distance;
+        protected TextView distance, txtViewNearYou;
         protected Intent eventIntent;
 
         //To be passed to event activity
@@ -40,12 +41,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         EventViewHolder(View itemView) {
             super(itemView);
 
-            eventCard = (CardView) itemView.findViewById(R.id.event_card_view);
+//            eventCard = (CardView) itemView.findViewById(R.id.event_card_view);
             eventName = (TextView) itemView.findViewById(R.id.event_name);
-            eventAddress = (TextView) itemView.findViewById(R.id.event_address);
+            //eventAddress = (TextView) itemView.findViewById(R.id.event_address);
             eventDate = (TextView) itemView.findViewById(R.id.event_date);
             distance = (TextView) itemView.findViewById(R.id.event_distance);
             eventImage = (ImageView) itemView.findViewById(R.id.event_image);
+
+            txtViewNearYou = (TextView) itemView.findViewById(R.id.id_near_you);
 
             itemView.setOnClickListener(this);
 
@@ -90,9 +93,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 .load(events.get(position).getImagePath()) // Image url to load from
                 .into(holder.eventImage); // ImageView to display image
         holder.eventName.setText(shortenText(events.get(position).getName(), charSize + 15));
-        holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));
-        holder.eventDate.setText(date);
-        holder.distance.setText("undefined");
+        //holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));
+        holder.eventDate.setText("14 July, 4PM");
+        holder.distance.setText("33km");
+        AlphaBackgroundCategory.set(holder.distance, events.get(position).getCategory());
+        AlphaBackgroundCategory.set(holder.txtViewNearYou, events.get(position).getCategory());
 
         holder.Id = events.get(position).getId();
         holder.Name = events.get(position).getName();

@@ -109,9 +109,9 @@
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_event_list">EventActivityList</string>
 
-    <string name="title_events">Events</string>
+    <string name="title_events">Event</string>
     <string name="title_map">Map</string>
-    <string name="title_add">Add</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_add">Create</string>
+    <string name="title_account">Account</string>
 
 </resources>
