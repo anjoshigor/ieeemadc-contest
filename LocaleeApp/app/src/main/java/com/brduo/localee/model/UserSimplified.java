@@ -5,12 +5,12 @@ package com.brduo.localee.model;
  */
 
 public class UserSimplified {
-    public int _id;
+    public String _id;
     public String name;
     public String email;
     public String photoUrl;
 
-    public UserSimplified(int _id, String name, String email, String photoUrl) {
+    public UserSimplified(String _id, String name, String email, String photoUrl) {
         this._id = _id;
         this.name = name;
         this.email = email;

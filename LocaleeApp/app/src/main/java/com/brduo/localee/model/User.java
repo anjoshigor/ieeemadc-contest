@@ -1,6 +1,6 @@
 package com.brduo.localee.model;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,11 +14,11 @@ public class User {
     public String name;
 
     public List<EventSimplified> eventsCreated;
-    public Calendar updatedAt;
-    public Calendar createdAt;
+    public Date updatedAt;
+    public Date createdAt;
     public String photoUrl;
 
-    public User(String _id, String email, String password, String name, List<EventSimplified> eventsCreated, Calendar updatedAt, Calendar createdAt, String photoUrl) {
+    public User(String _id, String email, String password, String name, List<EventSimplified> eventsCreated, Date updatedAt, Date createdAt, String photoUrl) {
         this._id = _id;
         this.email = email;
         this.password = password;
