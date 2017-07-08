@@ -1,11 +1,11 @@
-
+const savePhoto = require('../../hooks/save-photo');
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [savePhoto()],
     update: [],
     patch: [],
     remove: []

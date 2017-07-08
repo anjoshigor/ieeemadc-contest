@@ -18,11 +18,11 @@ public class AlphaBackgroundCategory {
            case FOOD:
                color = R.color.yellow_alpha87;
                break;
-           case ANIME:
+           case TECH:
                color = R.color.purple_alpha87;
                break;
            default:
-               color = R.color.white_alpha87;
+               color = R.color.black_alpha50;
        }
        textView.setBackgroundColor(textView.getResources().getColor(color));
     }
@@ -35,11 +35,11 @@ public class AlphaBackgroundCategory {
             case "food":
                 color = R.color.yellow_alpha87;
                 break;
-            case "anime":
+            case "technology":
                 color = R.color.purple_alpha87;
                 break;
             default:
-                color = R.color.white_alpha87;
+                color = R.color.black_alpha50;
         }
         textView.setBackgroundColor(textView.getResources().getColor(color));
     }

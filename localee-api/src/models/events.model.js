@@ -15,12 +15,12 @@ module.exports = function (app) {
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     photoUrl: { type: String, default: 'caminhodefault' },
-      user: {
-        _id: { type: mongooseClient.Schema.Types.ObjectId },
-        name: { type: String, require: true },
-        email: { type: String, required: true },
-        photoUrl: { type: String, require: true },
-      }
+    createdBy: {
+      _id: { type: mongooseClient.Schema.Types.ObjectId },
+      name: { type: String, require: true },
+      email: { type: String, required: true },
+      photoUrl: { type: String, require: true },
+    }
   });
 
   return mongooseClient.model('events', events);

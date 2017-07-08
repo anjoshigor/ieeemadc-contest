@@ -35,5 +35,6 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile "com.mikepenz:itemanimators:1.0.0@aar"
     testCompile 'junit:junit:4.12'
 }

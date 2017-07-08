@@ -5,5 +5,5 @@ package com.brduo.localee.util;
  */
 
 public enum EventCategory {
-    ANIME, FOOD, PARTY
+    TECH, FOOD, PARTY
 }

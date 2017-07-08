@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.ScaleAnimation;
 
 import com.brduo.localee.controller.EventAdapter;
 import com.brduo.localee.R;
@@ -28,9 +30,12 @@ import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.util.LocationTracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mikepenz.itemanimators.ScaleUpAnimator;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -94,7 +99,9 @@ public class EventsListFragment extends Fragment {
 
         LocaleeAPI api = retrofit.create(LocaleeAPI.class);
 
-        Call<EventResponse> call = api.getEvents();
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
+        Log.i("GETALLEVENTS",dateString);
+        Call<EventResponse> call = api.getEvents(dateString);
         call.enqueue(new Callback<EventResponse>() {
             @Override
             public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
