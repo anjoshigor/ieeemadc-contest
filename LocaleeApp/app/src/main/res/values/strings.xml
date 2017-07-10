@@ -1,4 +1,5 @@
 <resources>
+    <string name="search_bar_placeholder">Where When What</string>
     <string name="app_name">Localee</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -95,7 +96,7 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
     <!-- Titles and descriptions of the slides -->
-    <string name="slide_1_title">Meet Evt!</string>
+    <string name="slide_1_title">Meet Localee!</string>
     <string name="slide_1_desc">Find cultural events near you</string>
 
     <string name="slide_2_title">Find your locals!</string>
@@ -113,5 +114,8 @@
     <string name="title_map">Map</string>
     <string name="title_add">Create</string>
     <string name="title_account">Account</string>
+    <string name="description">Description</string>
+
+    <string name="near_you">near you</string>
 
 </resources>

@@ -68,7 +68,7 @@
                 android:paddingTop="10dp"
                 android:background="@color/purple_alpha87"
                 android:gravity="center"
-                android:text="near you"
+                android:text="@string/near_you"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
 
