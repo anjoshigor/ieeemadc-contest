@@ -1,5 +1,7 @@
 package com.brduo.localee.util;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
 import com.brduo.localee.R;

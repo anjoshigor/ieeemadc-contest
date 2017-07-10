@@ -61,7 +61,7 @@ public class EventsListFragment extends Fragment {
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.color_title_toolbar));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Where When What");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.search_bar_placeholder);
         setHasOptionsMenu(true);
 
         locationTracker = new LocationTracker(getContext());

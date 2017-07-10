@@ -38,7 +38,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public List<Event> events;
     private Location userLocation;
-    Geocoder geoCoder;
+    private Geocoder geoCoder;
 
     public static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected CardView eventCard;
@@ -49,7 +49,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         //To be passed to event activity
         protected String Id;
-        protected String Name;
+        protected String ImageUrl;
+
 
         EventViewHolder(View itemView) {
             super(itemView);
@@ -73,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             eventIntent = new Intent(v.getContext(), EventActivity.class);
             eventIntent.putExtra("id", this.Id);
-            eventIntent.putExtra("name", this.Name);
+            eventIntent.putExtra("imageUrl", this.ImageUrl);
             v.getContext().startActivity(eventIntent);
         }
     }
@@ -144,6 +145,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         //binding
         Picasso.with(imageContext) // Specify the application context
                 .load(events.get(position).photoUrl)// Image url to load from
+                .placeholder(R.drawable.ic_curves)
                 .resize(1920,1080)
                 .onlyScaleDown()
                 .centerCrop()
@@ -156,7 +158,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         AlphaBackgroundCategory.set(holder.txtViewNearYou, events.get(position).category);
 
         holder.Id = events.get(position)._id;
-        holder.Name = events.get(position).name;
+        holder.ImageUrl = events.get(position).photoUrl;
     }
 
     @Override

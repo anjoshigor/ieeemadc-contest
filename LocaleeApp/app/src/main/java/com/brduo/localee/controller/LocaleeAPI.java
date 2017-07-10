@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -21,4 +22,7 @@ public interface LocaleeAPI {
 
     @GET("events?$sort=date&$limit=50")
     Call<EventResponse> getEvents(@Query("date[$gte]") String dateGte);
+
+    @GET("events/{id}")
+    Call<Event> getEvent(@Path("id") String id);
 }
