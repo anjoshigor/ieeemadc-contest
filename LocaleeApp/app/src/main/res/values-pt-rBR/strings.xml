@@ -13,5 +13,8 @@
     <string name="title_add">Criar</string>
     <string name="title_account">Conta</string>
     <string name="description">Descrição</string>
-
+    <string name="created_by">Criado Por</string>
+    <string name="contact">contato</string>
+    <string name="send_email">Envie um email</string>
+    <string name="email_app_error">Não há um app de email instalado</string>
 </resources>

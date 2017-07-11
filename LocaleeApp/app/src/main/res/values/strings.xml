@@ -115,7 +115,10 @@
     <string name="title_add">Create</string>
     <string name="title_account">Account</string>
     <string name="description">Description</string>
-
+    <string name="created_by">Created by</string>
     <string name="near_you">near you</string>
-
+    <string name="contact">contact</string>
+    <string name="send_email">Send an email</string>
+    <string name="email_app_error">There\'s no email app installed</string>
+    <string name="title_activity_events_map">EventsMap</string>
 </resources>

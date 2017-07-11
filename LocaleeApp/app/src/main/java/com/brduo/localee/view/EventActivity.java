@@ -1,6 +1,7 @@
 package com.brduo.localee.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +17,17 @@ import com.brduo.localee.R;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.Event;
 import com.brduo.localee.util.AlphaBackgroundCategory;
+import com.brduo.localee.util.EmailClickListener;
 import com.brduo.localee.util.StringsFormatter;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -27,15 +38,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends AppCompatActivity implements OnMapReadyCallback {
     Toolbar toolbar;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    ImageView eventImage;
-    TextView categoryTv, addressTv, descriptionTv, startDateTv;
+    ImageView eventImage, userImage;
+    TextView categoryTv, addressTv, addressMapTv, descriptionTv, startDateTv;
+    TextView userNameTv, contactTv;
     Intent intent;
     String id;
     boolean renderedFlag = false;
     Event actualEvent;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +59,13 @@ public class EventActivity extends AppCompatActivity {
         eventImage = (ImageView) findViewById(R.id.image_toolbar);
         categoryTv = (TextView) findViewById(R.id.category);
         addressTv = (TextView) findViewById(R.id.address);
+        addressMapTv = (TextView) findViewById(R.id.mapAddress);
         descriptionTv = (TextView) findViewById(R.id.descriptionText);
         startDateTv = (TextView) findViewById(R.id.start_date);
-
+        userNameTv = (TextView) findViewById(R.id.user_name);
+        userImage = (ImageView) findViewById(R.id.user_photo);
+        contactTv = (TextView) findViewById(R.id.contact);
         setSupportActionBar(toolbar);
-
 
         //Consumir servico do evento especifico
         intent = getIntent();
@@ -133,12 +148,37 @@ public class EventActivity extends AppCompatActivity {
         }
         collapsingToolbarLayout.setTitle(event.name);
         addressTv.setText(event.address);
+        addressMapTv.setText(event.address);
         categoryTv.setText(event.category);
         AlphaBackgroundCategory.set(categoryTv, event.category);
         descriptionTv.setText(event.description);
         startDateTv.setText(StringsFormatter.formatDate(event.date));
+        userNameTv.setText(event.createdBy.name);
+
+        Picasso.with(this)
+                .load(event.createdBy.photoUrl)
+                .placeholder(R.drawable.ic_user)
+                .into(userImage);
+
+        contactTv.setOnClickListener(new EmailClickListener(event.createdBy.email, event.name));
+
+        //map
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+
+        mapFragment.getMapAsync(this);
+    }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
 
+        LatLng position = new LatLng(-7.1622870,-34.8172080);
+
+        map.addMarker( new MarkerOptions().position(position).title(actualEvent.name));
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(position).zoom(14.0f).build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        map.moveCamera(cameraUpdate);
     }
 }
