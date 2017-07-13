@@ -84,8 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_music_note_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:background="@drawable/alpha_circle_border"
             android:layout_alignParentStart="true"
             android:text="@string/music"/>
@@ -96,8 +94,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_restaurant_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:background="@drawable/alpha_circle_border"
             android:layout_toRightOf="@id/txtview_music"
             android:text="@string/food"/>
@@ -108,8 +104,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_fitness_center_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:background="@drawable/alpha_circle_border"
             android:layout_toRightOf="@id/txtview_food"
             android:text="@string/sports"/>
@@ -129,8 +123,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_color_lens_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:layout_alignParentStart="true"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/art"/>
@@ -141,8 +133,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_movie_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_art"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/movies"/>
@@ -153,8 +143,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_crop_original_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_movies"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/design"/>
@@ -173,8 +161,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
-            android:drawableLeft="@drawable/ic_child_care_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:background="@drawable/alpha_circle_border"
             android:layout_alignParentStart="true"
             android:text="@string/comedy"/>
@@ -185,8 +171,6 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
-            android:drawableLeft="@drawable/ic_mic_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_comedy"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/talks"/>
@@ -197,8 +181,6 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
-            android:drawableLeft="@drawable/ic_group_black_18dp"
-            android:drawablePadding="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_talks"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/community"/>

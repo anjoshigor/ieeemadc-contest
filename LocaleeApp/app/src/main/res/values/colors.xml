@@ -7,10 +7,11 @@
     <color name="blue_alpha87">#DD20d2bb</color>
     <color name="yellow_alpha87">#DDFFA000</color>
 
-    <color name="colorPrimary">#F46665</color>
+    <color name="colorPrimary">#f64c73</color>
     <color name="colorPrimaryDark">#e0e0e0</color>
     <color name="colorAccent">#3D4377</color>
     <color name="color_title_toolbar">#757575</color>
+    <color name="colorDarkLogin">#E91E63</color>
     <!-- Slide settings -->
     <!-- Screens background colo    r -->
     <color name="bg_screen1">#f64c73</color>
