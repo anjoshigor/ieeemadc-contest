@@ -1,6 +1,7 @@
 package com.brduo.localee.view;
 
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -40,7 +42,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
  * A simple {@link Fragment} subclass.
  */
 public class EventsMapFragment extends Fragment implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks {
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleMap.OnInfoWindowClickListener{
 
     GoogleMap eventsMap;
     EventsController controller;
@@ -78,6 +81,7 @@ public class EventsMapFragment extends Fragment implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap) {
 
         eventsMap = googleMap;
+        eventsMap.setOnInfoWindowClickListener(this);
 
         updateLocationUI();
         //getDeviceLocation();
@@ -174,4 +178,17 @@ public class EventsMapFragment extends Fragment implements OnMapReadyCallback,
     }
 
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Event event = controller.getEventFromName(marker.getTitle());
+        Log.i("onInfoWindoeClick", marker.getTitle());
+        if(event != null){
+            Log.i("onInfoWindoeClick", "Marker Info clicked and event found");
+            Intent eventIntent = new Intent(getActivity(), EventActivity.class);
+            eventIntent.putExtra("id", event._id);
+            eventIntent.putExtra("imageUrl", event.photoUrl);
+            getActivity().startActivity(eventIntent);
+
+        }
+    }
 }

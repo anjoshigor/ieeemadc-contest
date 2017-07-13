@@ -42,6 +42,18 @@ public class EventsController {
         return currentEvents;
     }
 
+    public static Event getEventFromName(String name) {
+
+        for (Event event : currentEvents) {
+            if (event.name.equals(name)) {
+                return event;
+            }
+        }
+
+        return null;
+
+    }
+
     public static void setCurrentEvents(List<Event> events) {
         currentEvents = events;
     }
