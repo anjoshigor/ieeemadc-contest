@@ -1,5 +1,6 @@
 package com.brduo.localee.view;
 
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,14 +8,15 @@ import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.brduo.localee.R;
+import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.util.PreferenceManager;
 
 import java.lang.reflect.Field;
@@ -22,7 +24,10 @@ import java.lang.reflect.Field;
 public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
-    private TextView mTextMessage;
+    private EventsController controller;
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,17 +36,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_events:
-                    EventsListFragment eventsListFragment = new EventsListFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, eventsListFragment).commit();
-                    return true;
+                    fragment = new EventsListFragment();
+                    break;
                 case R.id.navigation_map:
-                    return true;
+                    fragment = new EventsMapFragment();
+                    break;
                 case R.id.navigation_add:
-                    return true;
+                    break;
                 case R.id.navigation_user:
-                    return true;
+                    break;
             }
-            return false;
+            final FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragmentContainer, fragment).commit();
+            return true;
         }
 
     };
@@ -50,15 +57,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        controller = EventsController.getInstance();
+        Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
         preferenceManager = new PreferenceManager(this);
         if (preferenceManager.isFirstTimeLaunch()) {
             launchTutorial();
             finish();
         }
 
-        if(Build.VERSION.SDK_INT >= 23) {
-           // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Build.VERSION.SDK_INT >= 23) {
+            // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -66,7 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new EventsListFragment()).commit();
+        fragmentManager = getSupportFragmentManager();
+        fragment = new EventsListFragment();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragmentContainer, fragment).commit();
+
     }
 
     private void launchTutorial() {

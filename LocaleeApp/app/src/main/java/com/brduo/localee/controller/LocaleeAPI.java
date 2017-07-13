@@ -20,8 +20,8 @@ public interface LocaleeAPI {
 
     String LOCALEE_BASE_URL = "https://localee-api.herokuapp.com/";
 
-    @GET("events?$sort=date&$limit=50")
-    Call<EventResponse> getEvents(@Query("date[$gte]") String dateGte);
+    @GET("events?$sort=endDate&$limit=50")
+    Call<EventResponse> getEvents(@Query("startDate[$gte]") String dateGte);
 
     @GET("events/{id}")
     Call<Event> getEvent(@Path("id") String id);

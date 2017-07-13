@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
     boolean renderedFlag = false;
     Event actualEvent;
     private GoogleMap map;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +94,8 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
         }
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
     }
 
     private void getEvent(String id) {
@@ -136,7 +132,7 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
         });
     }
 
-    private void updateView(Event event) {
+    private void updateView(final Event event) {
         if (!renderedFlag) {
             Picasso.with(this)
                     .load(event.photoUrl)
@@ -152,12 +148,11 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
         categoryTv.setText(event.category);
         AlphaBackgroundCategory.set(categoryTv, event.category);
         descriptionTv.setText(event.description);
-        startDateTv.setText(StringsFormatter.formatDate(event.date));
+        startDateTv.setText(StringsFormatter.formatDate(event.startDate));
         userNameTv.setText(event.createdBy.name);
 
         Picasso.with(this)
                 .load(event.createdBy.photoUrl)
-                .placeholder(R.drawable.ic_user)
                 .into(userImage);
 
         contactTv.setOnClickListener(new EmailClickListener(event.createdBy.email, event.name));
@@ -167,6 +162,26 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.mapFragment);
 
         mapFragment.getMapAsync(this);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String calling = view.getResources().getString(R.string.lets_go);
+                String address = view.getResources().getString(R.string.address);
+                String date = view.getResources().getString(R.string.date);
+                String shareText = calling +
+                        '\n' + event.name + '\n' +
+                        address + ": " + event.address + '\n' +
+                        date + ": " + StringsFormatter.formatDate(event.startDate) +
+                        " - " + StringsFormatter.formatDate(event.endDate);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_via)));
+            }
+        });
     }
 
 
@@ -174,9 +189,9 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
-        LatLng position = new LatLng(-7.1622870,-34.8172080);
+        LatLng position = new LatLng(actualEvent.lat, actualEvent.lng);
 
-        map.addMarker( new MarkerOptions().position(position).title(actualEvent.name));
+        map.addMarker(new MarkerOptions().position(position).title(actualEvent.name));
         CameraPosition cameraPosition = new CameraPosition.Builder().target(position).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         map.moveCamera(cameraUpdate);
