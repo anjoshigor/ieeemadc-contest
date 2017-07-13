@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_bar_placeholder">Onde Quando O que</string>
+    <string name="search_bar_placeholder">Quando O que</string>
     <string name="slide_1_title">Conheça o Localee!</string>
     <string name="next">PRÓXIMO</string>
     <string name="skip">PULAR</string>
