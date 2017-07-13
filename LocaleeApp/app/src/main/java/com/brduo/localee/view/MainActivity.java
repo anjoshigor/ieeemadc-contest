@@ -27,31 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private EventsController controller;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    private BottomNavigationView bottomNav;
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_events:
-                    fragment = new EventsListFragment();
-                    break;
-                case R.id.navigation_map:
-                    fragment = new EventsMapFragment();
-                    break;
-                case R.id.navigation_add:
-                    break;
-                case R.id.navigation_user:
-                    break;
-            }
-            final FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragmentContainer, fragment).commit();
-            return true;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +46,36 @@ public class MainActivity extends AppCompatActivity {
             // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        disableShiftMode(navigation);
-
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         fragmentManager = getSupportFragmentManager();
         fragment = new EventsListFragment();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragmentContainer, fragment).commit();
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.navigation);
+        disableShiftMode(bottomNav);
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_events:
+                        fragment = new EventsListFragment();
+                        break;
+                    case R.id.navigation_map:
+                        fragment = new EventsMapFragment();
+                        break;
+                    case R.id.navigation_add:
+                        break;
+                    case R.id.navigation_user:
+                        break;
+                }
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragmentContainer, fragment).commit();
+                return true;
+            }
+        });
+
+
 
     }
 
