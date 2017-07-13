@@ -13,5 +13,7 @@
     <dimen name="slide_title">30dp</dimen>
     <dimen name="slide_desc">16dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
-
+    <dimen name="dialog_search_txtview_width">90dp</dimen>
+    <dimen name="dialog_search_txtview_padding">8dp</dimen>
+    <dimen name="dialog_search_drawble_padding">5dp</dimen>
 </resources>

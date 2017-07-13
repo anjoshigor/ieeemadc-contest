@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,13 +57,25 @@ public class EventsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.fragment_events_list);
         events = new ArrayList<>();
-        View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
+        final View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.color_title_toolbar));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.search_bar_placeholder);
         setHasOptionsMenu(true);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(rootView.getContext());
+                View mView = getActivity().getLayoutInflater().inflate(R.layout.dialog_search_event, null);
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
+            }
+        });
 
         locationTracker = new LocationTracker(getContext());
 
