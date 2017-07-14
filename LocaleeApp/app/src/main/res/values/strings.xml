@@ -138,8 +138,14 @@
     <string name="talks">Talks</string>
     <string name="community">Community</string>
     <string name="clear_all">Clear all</string>
-
+    <string name="event_name">Event Name</string>
+    <string name="event_description">Event Description</string>
+    <string name="photo_uploaded">image uploaded successfully!</string>
+    <string name="photo_not_uploaded">error uploading image!</string>
+    <string name="submit">Submit</string>
     <string name="validation_error">All fields must be filled properly</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">

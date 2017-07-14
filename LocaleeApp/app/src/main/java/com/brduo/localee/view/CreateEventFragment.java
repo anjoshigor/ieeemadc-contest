@@ -7,8 +7,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,8 +56,9 @@ public class CreateEventFragment extends Fragment {
     private ArrayList<String> filePaths;
     private DatePickerDialog startdatePicker, enddatePicker;
     private TimePickerDialog startTimePicker, endTimePicker;
-    private TextView startDateButton, endDateButton, imageButton;
-    private TextInputEditText eventEditText, descriptionEditText;
+    private TextView startDateButton, endDateButton, uploadMessage;
+    private FloatingActionButton imageButton;
+    private EditText eventEditText, descriptionEditText;
     private Button submitButton;
     private ProgressBar loadingBar;
 
@@ -79,10 +80,11 @@ public class CreateEventFragment extends Fragment {
 
 
         startDateButton = (TextView) rootView.findViewById(R.id.startDateButton);
+        uploadMessage = (TextView) rootView.findViewById(R.id.uploadMessage);
         endDateButton = (TextView) rootView.findViewById(R.id.endDateButton);
-        imageButton = (TextView) rootView.findViewById(R.id.imageButton);
-        eventEditText = (TextInputEditText) rootView.findViewById(R.id.eventEditText);
-        descriptionEditText = (TextInputEditText) rootView.findViewById(R.id.descriptionEditText);
+        imageButton = (FloatingActionButton) rootView.findViewById(R.id.imageButton);
+        eventEditText = (EditText) rootView.findViewById(R.id.eventEditText);
+        descriptionEditText = (EditText) rootView.findViewById(R.id.descriptionEditText);
         submitButton = (Button) rootView.findViewById(R.id.submit);
         setCurrentDate();
 
@@ -90,7 +92,7 @@ public class CreateEventFragment extends Fragment {
         endDateButton.setOnClickListener(endButtonClickListener);
         imageButton.setOnClickListener(imageButtonOnClickListener);
         submitButton.setOnClickListener(submitOnClickListener);
-        loadingBar =  (ProgressBar) rootView.findViewById(R.id.progressBar);
+        loadingBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         filePaths = new ArrayList<>();
 
@@ -227,6 +229,9 @@ public class CreateEventFragment extends Fragment {
         if (filePaths.size() > 0) {
             Log.i("Image:", filePaths.get(0));
             eventPhoto = new File(filePaths.get(0));
+            uploadMessage.setText(R.string.photo_uploaded);
+        } else {
+            uploadMessage.setText(R.string.photo_not_uploaded);
         }
     }
 
@@ -323,7 +328,7 @@ public class CreateEventFragment extends Fragment {
         }
     };
 
-    private TextView.OnClickListener imageButtonOnClickListener = new TextView.OnClickListener() {
+    private FloatingActionButton.OnClickListener imageButtonOnClickListener = new FloatingActionButton.OnClickListener() {
 
         @Override
         public void onClick(View v) {
