@@ -26,6 +26,10 @@ public class Event {
     public Date updatedAt;
     public Date createdAt;
 
+    public Event(){
+
+    }
+
     public Event(String _id, String name, String address, String description, String category,
                  String photoUrl, String city, String country, Date startDate, Date endDate,
                  float  lat, float lng, UserSimplified createdBy, Date updatedAt, Date createdAt) {
@@ -44,5 +48,26 @@ public class Event {
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "_id='" + _id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", createdBy=" + createdBy +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

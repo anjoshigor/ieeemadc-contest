@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new EventsMapFragment();
                         break;
                     case R.id.navigation_add:
+                        fragment = new CreateEventFragment();
                         break;
                     case R.id.navigation_user:
                         break;

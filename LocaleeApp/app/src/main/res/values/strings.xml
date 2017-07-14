@@ -138,6 +138,9 @@
     <string name="community">Community</string>
     <string name="clear_all">Clear all</string>
 
+    <string name="validation_error">All fields must be filled properly</string>
+
+
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyBto9GpoH1zA1zsBKVd7vNLxZFuQa5SQhQ
     </string>

@@ -17,7 +17,7 @@
     <string name="contact">contato</string>
     <string name="send_email">Envie um email</string>
     <string name="email_app_error">Não há um app de email instalado</string>
-
+    <string name="validation_error">Todos os campos devem ser preenchidos corretamente</string>
     <string name="lets_go">Eu encontrei esse evento no Localee!</string>
     <string name="date">data</string>
     <string name="address">endereço</string>
