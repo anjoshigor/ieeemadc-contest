@@ -2,19 +2,23 @@ package com.brduo.localee.view;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.brduo.localee.Manifest;
 import com.brduo.localee.R;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.util.PreferenceManager;
@@ -34,16 +38,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         controller = EventsController.getInstance();
         Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
+
         preferenceManager = new PreferenceManager(this);
+
         if (preferenceManager.isFirstTimeLaunch()) {
             launchTutorial();
             finish();
-        }
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
         fragmentManager = getSupportFragmentManager();
@@ -75,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
     }
 
     private void launchTutorial() {
@@ -107,4 +107,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e("BNVHelper", "Unable to change value of shift mode", e);
         }
     }
+
 }
