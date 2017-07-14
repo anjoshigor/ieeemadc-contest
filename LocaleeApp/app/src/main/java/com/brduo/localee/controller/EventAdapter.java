@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -81,6 +82,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
     public EventAdapter(List<Event> events, Location location, Context context) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         this.events = events;
         this.userLocation = location;
         geoCoder = new Geocoder(context, Locale.getDefault());
@@ -88,6 +90,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card, parent, false);
         EventViewHolder evh = new EventViewHolder(v);
         return evh;
@@ -101,7 +104,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         float distance;
         String distanceString;
 
-        Date date = events.get(position).date;
+        Date date = events.get(position).startDate;
         Context imageContext = holder.eventImage.getContext();
         int charSize = imageContext.getResources().getInteger(R.integer.max_characters);
 
@@ -112,23 +115,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         hour = auxCalendar.get(Calendar.HOUR);
         period = auxCalendar.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.getDefault());
         //distance
-        address = events.get(position).address;
-        Address addr;
-        try {
-            List<Address> addrList = geoCoder.getFromLocationName(address, 1);
-            if (addrList.size() == 0)
-                throw new IOException("Empty list from getFromLocationName Method");
-
-            addr = addrList.get(0);
-            Location aux = new Location("");
-            aux.setLatitude(addr.getLatitude());
-            aux.setLongitude(addr.getLongitude());
-            distance = userLocation.distanceTo(aux);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("EventAdapter", "Erro ao obter geolocation from address", e);
-            distance = -1;
-        }
+        Location eventLocation = new Location("");
+        eventLocation.setLatitude(events.get(position).lat);
+        eventLocation.setLatitude(events.get(position).lng);
+        distance = userLocation.distanceTo(eventLocation);
 
 
         if (distance == -1) {
@@ -145,8 +135,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         //binding
         Picasso.with(imageContext) // Specify the application context
                 .load(events.get(position).photoUrl)// Image url to load from
-                .placeholder(R.drawable.ic_curves)
-                .resize(1920,1080)
+                .resize(1920, 1080)
                 .onlyScaleDown()
                 .centerCrop()
                 .into(holder.eventImage); // ImageView to display image

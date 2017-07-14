@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,42 +22,40 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by anjoshigor on 05/07/17.
  */
 
-public class EventsController implements Callback<EventResponse> {
+public class EventsController {
+    private static EventsController instance;
+    private static List<Event> currentEvents;
 
-
-    public void getAllEvents() {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LocaleeAPI.LOCALEE_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        LocaleeAPI localeeApi = retrofit.create(LocaleeAPI.class);
-        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
-        Log.i("GETALLEVENTS", dateString);
-        Call<EventResponse> call = localeeApi.getEvents(dateString);
-        call.enqueue(this);
-
-    }
-
-    @Override
-    public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
-        if (response.isSuccessful()) {
-            List<Event> eventList = response.body().data;
-            for (Event event : eventList) {
-                Log.i("RESPOSTA", event.name);
-            }
-        } else {
-            System.out.println(response.errorBody());
+    public static EventsController getInstance() {
+        if (instance == null) {
+            instance = new EventsController();
         }
+
+        return instance;
     }
 
-    @Override
-    public void onFailure(Call<EventResponse> call, Throwable t) {
-        Log.e("RESPOSTA", t.getMessage());
-        t.printStackTrace();
+    private EventsController() {
+        currentEvents = new ArrayList<>();
     }
+
+    public static List<Event> getCurrentEvents() {
+        return currentEvents;
+    }
+
+    public static Event getEventFromName(String name) {
+
+        for (Event event : currentEvents) {
+            if (event.name.equals(name)) {
+                return event;
+            }
+        }
+
+        return null;
+
+    }
+
+    public static void setCurrentEvents(List<Event> events) {
+        currentEvents = events;
+    }
+
 }

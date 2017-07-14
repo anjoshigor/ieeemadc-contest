@@ -3,6 +3,7 @@ package com.brduo.localee.model;
 
 import java.util.Date;
 import java.util.Date;
+
 import com.brduo.localee.util.EventCategory;
 
 
@@ -18,22 +19,30 @@ public class Event {
     public String description;
     public String category;
     public String photoUrl;
-    public Date date;
+    public String city, country;
+    public Date startDate, endDate;
+    public float lat, lng;
     public UserSimplified createdBy;
     public Date updatedAt;
     public Date createdAt;
 
-    public Event(String _id, String name, String address, String description, String category, String photoUrl, Date date, UserSimplified createdBy, Date updatedAt, Date createdAt) {
+    public Event(String _id, String name, String address, String description, String category,
+                 String photoUrl, String city, String country, Date startDate, Date endDate,
+                 float  lat, float lng, UserSimplified createdBy, Date updatedAt, Date createdAt) {
         this._id = _id;
         this.name = name;
         this.address = address;
         this.description = description;
         this.category = category;
         this.photoUrl = photoUrl;
-        this.date = date;
+        this.city = city;
+        this.country = country;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.lat = lat;
+        this.lng = lng;
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
-
 }

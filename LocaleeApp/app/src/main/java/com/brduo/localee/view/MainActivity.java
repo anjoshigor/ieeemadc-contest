@@ -1,20 +1,26 @@
 package com.brduo.localee.view;
 
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
+import com.brduo.localee.Manifest;
 import com.brduo.localee.R;
+import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.util.PreferenceManager;
 
 import java.lang.reflect.Field;
@@ -22,51 +28,55 @@ import java.lang.reflect.Field;
 public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
-    private TextView mTextMessage;
+    private EventsController controller;
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+    private BottomNavigationView bottomNav;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_events:
-                    EventsListFragment eventsListFragment = new EventsListFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, eventsListFragment).commit();
-                    return true;
-                case R.id.navigation_map:
-                    return true;
-                case R.id.navigation_add:
-                    return true;
-                case R.id.navigation_user:
-                    return true;
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        controller = EventsController.getInstance();
+        Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
+
         preferenceManager = new PreferenceManager(this);
+
         if (preferenceManager.isFirstTimeLaunch()) {
             launchTutorial();
             finish();
         }
 
-        if(Build.VERSION.SDK_INT >= 23) {
-           // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+        fragmentManager = getSupportFragmentManager();
+        fragment = new EventsListFragment();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragmentContainer, fragment).commit();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        disableShiftMode(navigation);
+        bottomNav = (BottomNavigationView) findViewById(R.id.navigation);
+        disableShiftMode(bottomNav);
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new EventsListFragment()).commit();
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_events:
+                        fragment = new EventsListFragment();
+                        break;
+                    case R.id.navigation_map:
+                        fragment = new EventsMapFragment();
+                        break;
+                    case R.id.navigation_add:
+                        break;
+                    case R.id.navigation_user:
+                        break;
+                }
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragmentContainer, fragment).commit();
+                return true;
+            }
+        });
     }
 
     private void launchTutorial() {
@@ -96,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e("BNVHelper", "Unable to change value of shift mode", e);
         }
     }
+
 }

@@ -81,29 +81,32 @@
 
         <TextView
             android:id="@+id/txtview_music"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:background="@drawable/alpha_circle_border"
+            android:gravity="center"
             android:layout_alignParentStart="true"
             android:text="@string/music"/>
 
         <TextView
             android:id="@+id/txtview_food"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:background="@drawable/alpha_circle_border"
             android:layout_toRightOf="@id/txtview_music"
             android:text="@string/food"/>
 
         <TextView
             android:id="@+id/txtview_sports"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:background="@drawable/alpha_circle_border"
             android:layout_toRightOf="@id/txtview_food"
             android:text="@string/sports"/>
@@ -120,29 +123,32 @@
 
         <TextView
             android:id="@+id/txtview_art"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:layout_alignParentStart="true"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/art"/>
 
         <TextView
             android:id="@+id/txtview_movies"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:layout_toRightOf="@id/txtview_art"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/movies"/>
 
         <TextView
             android:id="@+id/txtview_design"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:layout_toRightOf="@id/txtview_movies"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/design"/>
@@ -158,17 +164,19 @@
 
         <TextView
             android:id="@+id/txtview_comedy"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
+            android:gravity="center"
             android:background="@drawable/alpha_circle_border"
             android:layout_alignParentStart="true"
             android:text="@string/comedy"/>
 
         <TextView
             android:id="@+id/txtview_talks"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_comedy"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,7 +32,7 @@ import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.util.LocationTracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mikepenz.itemanimators.ScaleUpAnimator;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,16 +48,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EventsListFragment extends Fragment {
 
-    private List<Event> events;
     private RecyclerView eventListRecycler;
     private EventAdapter adapter;
     private LocationTracker locationTracker;
+    private EventsController controller;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controller = EventsController.getInstance();
+        Log.i("EventsListFragment", "Events size: "+controller.getCurrentEvents().size());
         // setContentView(R.layout.fragment_events_list);
-        events = new ArrayList<>();
         final View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -89,7 +91,7 @@ public class EventsListFragment extends Fragment {
 
         eventListRecycler.setHasFixedSize(true);
         eventListRecycler.setLayoutManager(layoutManager);
-        adapter = new EventAdapter(events, locationTracker.getLocation(), getContext());
+        adapter = new EventAdapter(controller.getCurrentEvents(), locationTracker.getLocation(), getContext());
         eventListRecycler.setAdapter(adapter);
 
 
@@ -119,8 +121,8 @@ public class EventsListFragment extends Fragment {
             @Override
             public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
                 if (response.isSuccessful()) {
-                    events = response.body().data;
-                    adapter.events = events;
+                    controller.setCurrentEvents(response.body().data);
+                    adapter.events = controller.getCurrentEvents();
                     eventListRecycler.setAdapter(adapter);
                 } else {
                     Log.e("RETROFIT", "Erro na listagem de eventos");
