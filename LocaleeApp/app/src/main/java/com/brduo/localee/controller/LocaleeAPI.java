@@ -27,9 +27,21 @@ public interface LocaleeAPI {
     @GET("events?$sort=endDate&$limit=50")
     Call<EventResponse> getEvents(@Query("startDate[$gte]") String dateGte);
 
+    @GET("events?$sort=endDate&$limit=50")
+    Call<EventResponse> getEventsBySingleCategory(@Query("category") String category);
+
+    @GET("events?$sort=endDate&$limit=50")
+    Call<EventResponse> getEventsByDateBetween(@Query("endDate[$gte]") String dateFrom, @Query("endDate[$lte]") String dateTo);
+
     @GET("events/{id}")
     Call<Event> getEvent(@Path("id") String id);
 
+    @GET("users/{id}")
+    Call<User> getUser(@Path("id") String id);
+
     @POST("users/")
     Call<User> postUser(@Body User user);
+
+    @POST("events/")
+    Call<Event> postEvent(@Body Event event);
 }
