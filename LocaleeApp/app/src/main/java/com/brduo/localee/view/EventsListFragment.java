@@ -58,7 +58,7 @@ public class EventsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         controller = EventsController.getInstance();
         Log.i("EventsListFragment", "Events size: "+controller.getCurrentEvents().size());
-        // setContentView(R.layout.fragment_events_list);
+//       setContentView(R.layout.fragment_events_list);
         final View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -137,4 +137,5 @@ public class EventsListFragment extends Fragment {
         });
     }
 }
+
 

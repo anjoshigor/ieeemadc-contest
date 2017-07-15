@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_add:
                         break;
                     case R.id.navigation_user:
+                        fragment = new AccountFragment();
+                        break;
+                    default:
                         break;
                 }
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
