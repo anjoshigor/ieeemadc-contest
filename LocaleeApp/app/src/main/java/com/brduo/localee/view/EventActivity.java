@@ -82,13 +82,13 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
         }
 
         //if already has the url, no need to render after
-        if (imageUrl != null) {
-            Picasso.with(this)
+        if (imageUrl != null || imageUrl.length() > 0) {
+            Picasso.Builder builder = new Picasso.Builder(this);
+            builder.listener(imageListener);
+            builder.build()
                     .load(imageUrl)
-                    .resize(1920, 1080)
-                    .onlyScaleDown()
-                    .centerCrop()
-                    .into(eventImage);
+
+                    .into(eventImage,imageCallback);
 
             renderedFlag = true;
         }
@@ -137,10 +137,10 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
             Picasso.with(this)
                     .load(event.photoUrl)
                     .placeholder(R.drawable.ic_curves)
-                    .resize(1920, 1080)
+                    .resize(640, 480)
                     .onlyScaleDown()
                     .centerCrop()
-                    .into(eventImage);
+                    .into(eventImage, imageCallback);
         }
         collapsingToolbarLayout.setTitle(event.name);
         addressTv.setText(event.address);
@@ -196,4 +196,25 @@ public class EventActivity extends AppCompatActivity implements OnMapReadyCallba
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         map.moveCamera(cameraUpdate);
     }
+
+    com.squareup.picasso.Callback imageCallback = new com.squareup.picasso.Callback(){
+        @Override
+        public void onSuccess() {
+            Log.i("PICASSO", "Image carregada com sucesso");
+        }
+
+        @Override
+        public void onError() {
+            Log.i("PICASSO", "Erro ao carregar imagem!");
+        }
+    };
+
+    Picasso.Listener imageListener = new Picasso.Listener(){
+        @Override
+        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+            exception.printStackTrace();
+        }
+    };
 }
+
+

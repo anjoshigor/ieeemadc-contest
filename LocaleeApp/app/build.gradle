@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -36,7 +37,9 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.google.android.gms:play-services:11.0.2'
+    compile 'com.google.android.gms:play-services-places:11.0.2'
+    compile 'com.google.android.gms:play-services-identity:11.0.2'
+    compile 'com.google.android.gms:play-services-location:11.0.2'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.google.android.gms:play-services-maps:11.0.2'
     compile 'com.droidninja:filepicker:2.0.6'

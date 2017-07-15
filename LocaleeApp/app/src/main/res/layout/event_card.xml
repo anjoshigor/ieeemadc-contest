@@ -14,10 +14,9 @@
 
         <ImageView
             android:id="@+id/event_image"
+            android:contentDescription="Event image"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop" />
 
@@ -38,7 +37,6 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="16dp"
                 android:fontFamily="sans-serif"
-                android:text="Event Name"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
@@ -50,9 +48,7 @@
                 android:layout_marginBottom="8dp"
                 android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/black_alpha50"
                 android:fontFamily="sans-serif-light"
-                android:text="Event date"
                 android:textSize="14sp" />
 
             <TextView
@@ -63,7 +59,6 @@
                 android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
                 android:drawablePadding="8dp"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/address"
                 android:textSize="14sp"
                 android:tint="@color/black_alpha50" />
 
@@ -97,10 +92,10 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:paddingTop="4dp"
-                    android:text="Distance"
                     android:textColor="@color/black_alpha50"
                     android:textSize="12sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </LinearLayout>
 

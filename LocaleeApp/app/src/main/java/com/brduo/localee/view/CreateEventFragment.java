@@ -39,11 +39,9 @@ import com.brduo.localee.util.PreferenceManager;
 import com.brduo.localee.util.StringsFormatter;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.vision.text.Text;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -80,6 +78,7 @@ public class CreateEventFragment extends Fragment {
     private EditText eventEditText, descriptionEditText;
     private Button submitButton;
     private ProgressBar loadingBar;
+    private RadioGroup radioGroup;
 
     File eventPhoto;
     Calendar startCalendar, endCalendar;
@@ -107,6 +106,7 @@ public class CreateEventFragment extends Fragment {
         }
 
 
+        radioGroup = (RadioGroup) rootView.findViewById(R.id.radio_group);
         startDateButton = (TextView) rootView.findViewById(R.id.startDateButton);
         endDateButton = (TextView) rootView.findViewById(R.id.endDateButton);
         imageButton = (TextView) rootView.findViewById(R.id.imageButton);
@@ -228,17 +228,58 @@ public class CreateEventFragment extends Fragment {
 
                 event.photoUrl = resp.data.img_url;
                 event.name = eventEditText.getText().toString();
-                event.startDate = startCalendar.getTime();
-                event.endDate = endCalendar.getTime();
+                event.startDate = StringsFormatter.fromDateToApiFormat(startCalendar.getTime());
+                event.endDate = StringsFormatter.fromDateToApiFormat(endCalendar.getTime());
                 event.description = descriptionEditText.getText().toString();
+                event.category = convertCategory(radioGroup.getCheckedRadioButtonId());
 
-                loadingBar.setIndeterminate(false);
+                if (!preferenceManager.isLogged()) {
+                    Snackbar snackbar = Snackbar
+                            .make(rootView, R.string.user_not_logged, Snackbar.LENGTH_LONG);
+                    snackbar.setAction(R.string.title_activity_login, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            launchLogin();
+                        }
+                    });
+                    snackbar.show();
+
+
+                }
+
+
+                user.email = preferenceManager.getUserEmail();
+                user._id = preferenceManager.getUserId();
+                user.name = preferenceManager.getUserName();
+                user.photoUrl = preferenceManager.getUserPhotoUrl();
+
+                event.createdBy = user;
+
+                Log.i("EVENT", event.toString());
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        .create();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .baseUrl(LocaleeAPI.LOCALEE_BASE_URL)
+                        .build();
+
+                LocaleeAPI service = retrofit.create(LocaleeAPI.class);
+
+                Call<Event> eventCall = service.postEvent(event);
+                eventCall.enqueue(uploadEventCallback);
 
             }
 
             @Override
             public void onFailure(Call<UploadResponse> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
+                Snackbar snackbar = Snackbar
+                        .make(rootView, R.string.photo_not_uploaded, Snackbar.LENGTH_LONG);
+                snackbar.show();
+                loadingBar.setIndeterminate(false);
             }
         });
     }
@@ -447,4 +488,83 @@ public class CreateEventFragment extends Fragment {
         getActivity().finish();
     }
 
+    private void launchEventView(String id, String url) {
+        Intent eventIntent = new Intent(rootView.getContext(), EventActivity.class);
+        eventIntent.putExtra("id", id);
+        eventIntent.putExtra("imageUrl", url);
+        rootView.getContext().startActivity(eventIntent);
+    }
+
+    Callback<Event> uploadEventCallback = new Callback<Event>() {
+        @Override
+        public void onResponse(Call<Event> call, Response<Event> response) {
+            Event newEvent;
+            if (response.isSuccessful()) {
+                Log.i("EVENT CALLBACK", response.body().toString());
+                newEvent = response.body();
+                event = newEvent;
+
+                Snackbar snackbar = Snackbar
+                        .make(rootView, R.string.event_created, Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.see, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        launchEventView(event._id, event.photoUrl);
+                    }
+                });
+                snackbar.show();
+                loadingBar.setIndeterminate(false);
+            } else {
+                Log.i("EVENT CALLBACK ERROR", "" + response.code());
+                Snackbar snackbar = Snackbar
+                        .make(rootView, R.string.event_not_created, Snackbar.LENGTH_LONG);
+                snackbar.show();
+                loadingBar.setIndeterminate(false);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Event> call, Throwable t) {
+
+            Log.i("EVENT CALLBACK ERROR", t.getMessage());
+            t.printStackTrace();
+            Snackbar snackbar = Snackbar
+                    .make(rootView, R.string.event_not_created, Snackbar.LENGTH_LONG);
+            snackbar.show();
+            loadingBar.setIndeterminate(false);
+        }
+    };
+
+    private String convertCategory(int id) {
+        switch (id) {
+            case R.id.radio_art:
+                return "art";
+
+            case R.id.radio_comedy:
+                return "comedy";
+
+            case R.id.radio_other:
+                return "other";
+
+            case R.id.radio_food:
+                return "food";
+
+            case R.id.radio_movies:
+                return "movies";
+
+            case R.id.radio_music:
+                return "music";
+
+            case R.id.radio_sports:
+                return "sports";
+
+            case R.id.radio_talks:
+                return "talks";
+
+            case R.id.radio_tech:
+                return "technology";
+        }
+
+        return "other";
+    }
 }

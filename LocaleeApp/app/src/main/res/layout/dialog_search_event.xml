@@ -143,7 +143,7 @@
             android:text="@string/movies"/>
 
         <TextView
-            android:id="@+id/txtview_design"
+            android:id="@+id/txtview_tech"
             android:layout_width="@dimen/dialog_search_txtview_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
@@ -151,7 +151,9 @@
             android:gravity="center"
             android:layout_toRightOf="@id/txtview_movies"
             android:background="@drawable/alpha_circle_border"
-            android:text="@string/design"/>
+            android:text="@string/tech"/>
+
+
 
     </RelativeLayout>
 
@@ -184,14 +186,14 @@
             android:text="@string/talks"/>
 
         <TextView
-            android:id="@+id/txtview_community"
+            android:id="@+id/txtview_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
             android:layout_toRightOf="@id/txtview_talks"
             android:background="@drawable/alpha_circle_border"
-            android:text="@string/community"/>
+            android:text="@string/other"/>
     </RelativeLayout>
 
     <View

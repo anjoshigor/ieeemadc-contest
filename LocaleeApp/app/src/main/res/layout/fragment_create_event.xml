@@ -199,12 +199,6 @@
 
 
                         <RadioButton
-                            android:id="@+id/radio_design"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/design" />
-
-                        <RadioButton
                             android:id="@+id/radio_comedy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -221,6 +215,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/tech" />
+
+                        <RadioButton
+                            android:id="@+id/radio_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/other" />
 
 
                     </RadioGroup>
