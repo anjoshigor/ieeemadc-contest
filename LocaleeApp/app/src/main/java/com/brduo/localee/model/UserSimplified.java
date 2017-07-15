@@ -10,7 +10,8 @@ public class UserSimplified {
     public String email;
     public String photoUrl;
 
-    public UserSimplified(){}
+    public UserSimplified() {
+    }
 
     public UserSimplified(String _id, String name, String email, String photoUrl) {
         this._id = _id;
@@ -19,4 +20,13 @@ public class UserSimplified {
         this.photoUrl = photoUrl;
     }
 
+    @Override
+    public String toString() {
+        return "UserSimplified{" +
+                "_id='" + _id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                '}';
+    }
 }

@@ -136,9 +136,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         //binding
         Picasso.with(imageContext) // Specify the application context
                 .load(events.get(position).photoUrl)// Image url to load from
-                .resize(1920, 1080)
-                .onlyScaleDown()
-                .centerCrop()
                 .into(holder.eventImage); // ImageView to display image
         holder.eventName.setText(events.get(position).name);
         //holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));

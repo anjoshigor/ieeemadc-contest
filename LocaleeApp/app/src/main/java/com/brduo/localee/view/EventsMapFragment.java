@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.brduo.localee.Manifest;
+
 import com.brduo.localee.R;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.model.Event;

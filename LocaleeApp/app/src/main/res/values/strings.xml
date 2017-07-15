@@ -1,6 +1,6 @@
 <resources>
     <string name="search_bar_placeholder">When What</string>
-    <string name="app_name">Localee</string>
+    <string name="app_name" translatable="false">Localee</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -105,10 +105,8 @@
     <string name="slide_3_title">Create your own!</string>
     <string name="slide_3_desc">You can create and share your cultural event</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
-    <string name="title_activity_event">EventActivity</string>
-    <string name="title_activity_event_list">EventActivityList</string>
+    <string name="slide_4_title">Have fun!</string>
+    <string name="slide_4_desc">Now take your phone to the next adventure!</string>
 
     <string name="title_events">Event</string>
     <string name="title_map">Map</string>
@@ -120,7 +118,6 @@
     <string name="contact">contact</string>
     <string name="send_email">Send an email</string>
     <string name="email_app_error">There\'s no email app installed</string>
-    <string name="title_activity_events_map">EventsMap</string>
 
     <!-- Strings related to search dialog -->
     <string name="when">When</string>
@@ -131,7 +128,7 @@
     <string name="food">Food</string>
     <string name="music">Music</string>
     <string name="art">Art</string>
-    <string name="design">Design</string>
+    <string name="other">Outro</string>
     <string name="sports">Sports</string>
     <string name="comedy">Comedy</string>
     <string name="movies">Movies</string>
@@ -141,6 +138,9 @@
     <string name="community">Community</string>
     <string name="cancel">Cancel</string>
     <string name="event_name">Event Name</string>
+    <string name="event_created">Event Created</string>
+    <string name="event_not_created">Event not Created</string>
+    <string name="see">See</string>
     <string name="event_description">Event Description</string>
     <string name="photo_uploaded">image uploaded successfully!</string>
     <string name="photo_not_uploaded">error uploading image!</string>
@@ -169,6 +169,7 @@
     <string name="lets_go">I found this event on Localee!</string>
     <string name="date">Date</string>
     <string name="address">Address</string>
+    <string name="user_not_logged">User not logged in</string>
     <string name="send_via">Share using</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -1,5 +1,7 @@
 package com.brduo.localee.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,5 +36,19 @@ public class StringsFormatter {
         String period = auxCalendar.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.getDefault());
 
         return day + " " + month + ", " + hour + "h" + minute + "m " + period;
+    }
+
+    public static Date fromDateToApiFormat(Date date) {
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(date);
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        Date dateReturn = null;
+        try {
+            dateReturn = formato.parse(dateString);
+
+        } catch (ParseException pex) {
+            pex.printStackTrace();
+        }
+
+        return dateReturn;
     }
 }
