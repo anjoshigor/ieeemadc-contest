@@ -35,6 +35,7 @@ import com.brduo.localee.model.Event;
 import com.brduo.localee.model.UploadResponse;
 import com.brduo.localee.model.User;
 import com.brduo.localee.model.UserSimplified;
+import com.brduo.localee.util.PreferenceManager;
 import com.brduo.localee.util.StringsFormatter;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -79,15 +80,13 @@ public class CreateEventFragment extends Fragment {
     private EditText eventEditText, descriptionEditText;
     private Button submitButton;
     private ProgressBar loadingBar;
-    private RadioButton radioArt, radioMusic;
-    private RadioGroup radioGroup;
-    private Drawable radioChecked, radioUnChecked;
 
     File eventPhoto;
     Calendar startCalendar, endCalendar;
     View rootView;
     Event event;
     UserSimplified user;
+    private PreferenceManager preferenceManager;
 
     public CreateEventFragment() {
         // Required empty public constructor
@@ -100,7 +99,14 @@ public class CreateEventFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
 
-        radioMusic = (RadioButton) rootView.findViewById(R.id.radio_music);
+        //test if user is logged
+        preferenceManager = new PreferenceManager(getActivity());
+
+        if (!preferenceManager.isLogged()) {
+            launchLogin();
+        }
+
+
         startDateButton = (TextView) rootView.findViewById(R.id.startDateButton);
         endDateButton = (TextView) rootView.findViewById(R.id.endDateButton);
         imageButton = (TextView) rootView.findViewById(R.id.imageButton);
@@ -130,7 +136,7 @@ public class CreateEventFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 // TODO: obter informações sobre o local selecionado.
                 Log.i("PLACES API", "Place: " + place.getName());
-                event.address = place.getName()+", "+place.getAddress().toString();
+                event.address = place.getName() + ", " + place.getAddress().toString();
                 LatLng coords = place.getLatLng();
                 event.lat = coords.latitude;
                 event.lng = coords.longitude;
@@ -138,7 +144,7 @@ public class CreateEventFragment extends Fragment {
                 Log.i("EVENT", event.toString());
 
                 addressResult.setText(event.address);
-                addressResult.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_pin_drop_black_24dp, 0, 0, 0);
+                addressResult.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pin_drop_black_24dp, 0, 0, 0);
             }
 
             @Override
@@ -168,7 +174,7 @@ public class CreateEventFragment extends Fragment {
         if (endCalendar.before(startCalendar)) {
             return false;
         }
-        if(addressResult.getText().equals("")){
+        if (addressResult.getText().equals("")) {
             return false;
         }
 
@@ -436,5 +442,9 @@ public class CreateEventFragment extends Fragment {
         event.setCountry(country);
     }
 
+    private void launchLogin() {
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().finish();
+    }
 
 }

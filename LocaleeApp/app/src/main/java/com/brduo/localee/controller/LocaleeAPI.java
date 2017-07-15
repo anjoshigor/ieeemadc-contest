@@ -2,13 +2,17 @@ package com.brduo.localee.controller;
 
 import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
+import com.brduo.localee.model.User;
+import com.brduo.localee.model.UserResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -25,4 +29,7 @@ public interface LocaleeAPI {
 
     @GET("events/{id}")
     Call<Event> getEvent(@Path("id") String id);
+
+    @POST("users/")
+    Call<User> postUser(@Body User user);
 }

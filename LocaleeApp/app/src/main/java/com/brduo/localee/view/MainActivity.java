@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (preferenceManager.isFirstTimeLaunch()) {
             launchTutorial();
-            finish();
         }
 
         fragmentManager = getSupportFragmentManager();
