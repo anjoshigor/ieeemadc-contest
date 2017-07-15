@@ -10,6 +10,8 @@ public class UserSimplified {
     public String email;
     public String photoUrl;
 
+    public UserSimplified(){}
+
     public UserSimplified(String _id, String name, String email, String photoUrl) {
         this._id = _id;
         this.name = name;

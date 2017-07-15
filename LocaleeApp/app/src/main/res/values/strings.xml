@@ -135,6 +135,8 @@
     <string name="sports">Sports</string>
     <string name="comedy">Comedy</string>
     <string name="movies">Movies</string>
+    <string name="tech">Tech</string>
+    <string name="category">Category</string>
     <string name="talks">Talks</string>
     <string name="community">Community</string>
     <string name="clear_all">Clear all</string>
