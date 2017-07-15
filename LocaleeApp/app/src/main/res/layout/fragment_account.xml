@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.brduo.localee.view.AccountFragment">
 
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:background="@color/pink_alpha87"
         android:orientation="vertical">
 
@@ -24,9 +26,9 @@
                 android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
                 android:elevation="12dp"
                 android:innerRadius="0dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:shape="ring"
                 android:thicknessRatio="1.9"
                 app:cardCornerRadius="60dp">
@@ -62,7 +64,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/contact"
+                android:id="@+id/yourevents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

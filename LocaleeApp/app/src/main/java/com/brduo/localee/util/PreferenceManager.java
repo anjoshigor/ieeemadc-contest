@@ -25,6 +25,7 @@ public class PreferenceManager {
     private static final String USER_PHOTO_URL = "url";
     private static final String USER_NAME = "name";
 
+
     public PreferenceManager(Context c) {
         context = c;
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -76,4 +77,5 @@ public class PreferenceManager {
     public String getUserName() {
         return pref.getString(USER_NAME, null);
     }
+
 }

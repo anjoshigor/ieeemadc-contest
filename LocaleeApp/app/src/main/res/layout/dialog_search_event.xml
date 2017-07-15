@@ -31,8 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dialog_search_txtview_padding"
             android:paddingBottom="@dimen/dialog_search_txtview_padding"
-            android:background="@drawable/alpha_circle_border"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/alpha_circle_border_pink"
             android:textColor="@android:color/white"
             android:layout_alignParentStart="true"
             android:gravity="center"
@@ -67,16 +66,29 @@
         android:id="@+id/txtview_what"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textSize="16sp"
         android:text="@string/what"/>
 
+    <TextView
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:id="@+id/txtview_all"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="@dimen/dialog_search_txtview_width"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/dialog_search_txtview_padding"
+        android:background="@drawable/alpha_circle_border_pink"
+        android:gravity="center"
+        android:text="@string/all"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_horizontal_margin">
 
         <TextView
@@ -191,6 +203,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dialog_search_txtview_padding"
             android:layout_marginLeft="@dimen/dialog_search_drawble_padding"
+            android:gravity="center"
             android:layout_toRightOf="@id/txtview_talks"
             android:background="@drawable/alpha_circle_border"
             android:text="@string/other"/>
@@ -223,12 +236,12 @@
             android:text="Ok"/>
 
         <Button
-            android:id="@+id/btn_clear_all"
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="@string/clear_all"/>
+            android:text="@string/cancel"/>
 
     </RelativeLayout>
 

@@ -29,17 +29,20 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private EventsController controller;
     private Fragment fragment;
+    private  MenuItem mMenuItem;
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNav;
+    private Fragment fragmentPrevious;
 
+    private static final String[] LOCATION_PERMS = {
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        controller = EventsController.getInstance();
-        Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
 
         preferenceManager = new PreferenceManager(this);
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             launchTutorial();
         }
 
+        fragmentPrevious = null;
         fragmentManager = getSupportFragmentManager();
         fragment = new EventsListFragment();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -54,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNav = (BottomNavigationView) findViewById(R.id.navigation);
         disableShiftMode(bottomNav);
+
+
+        controller = EventsController.getInstance();
+        Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
 
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -74,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 }
+                fragmentPrevious = fragment;
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragmentContainer, fragment).commit();
                 return true;
             }
         });
+
     }
 
     private void launchTutorial() {
@@ -109,4 +119,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1440: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //initApp();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+    
 }

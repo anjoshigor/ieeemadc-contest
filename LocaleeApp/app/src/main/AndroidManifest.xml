@@ -56,7 +56,8 @@
             android:name=".view.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppThemeLogin" />
-        <activity android:name=".view.SignUpActivity"></activity>
+        <activity android:name=".view.SignUpActivity"
+            android:theme="@style/AppThemeLogin"/>
     </application>
 
 </manifest>
