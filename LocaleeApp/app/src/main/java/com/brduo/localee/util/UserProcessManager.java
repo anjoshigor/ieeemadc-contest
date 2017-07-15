@@ -1,11 +1,13 @@
 package com.brduo.localee.util;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.brduo.localee.R;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.controller.UploadsAPI;
 import com.brduo.localee.model.UploadResponse;
@@ -28,35 +30,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by anjoshigor on 15/07/17.
  */
 
-public class SubmitUserClickListener implements View.OnClickListener {
+public class UserProcessManager {
 
     String name, email, password;
     File photo;
     ProgressBar loadingBar;
     PreferenceManager preferenceManager;
     Context context;
-    TextView textView;
+    Snackbar snackbar;
+    User user;
 
-    public SubmitUserClickListener(Context c, String name, String email, String password, File photo, ProgressBar loadingBar, TextView messageTextView) {
+    public UserProcessManager(Context c, User user, File photo, ProgressBar loadingBar, Snackbar snackBar) {
         preferenceManager = new PreferenceManager(c);
-        this.context = c;
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        this.user = user;
         this.photo = photo;
         this.loadingBar = loadingBar;
-        this.textView = messageTextView;
+        this.snackbar = snackBar;
     }
 
-    @Override
-    public void onClick(View v) {
-        this.loadingBar.setIndeterminate(true);
-        uploadToService();
-    }
 
     public void uploadToService() {
+        this.loadingBar.setIndeterminate(true);
         // create upload service client
-
+        Log.i("PHOTO", photo.getAbsolutePath());
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -101,7 +97,10 @@ public class SubmitUserClickListener implements View.OnClickListener {
             Log.v("Upload response", resp.data.img_url);
             String image_url = resp.data.img_url;
 
-            User user = new User(email, password, name, image_url);
+            user.photoUrl = image_url;
+            
+            Log.i("USER", user.toString());
+
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -122,7 +121,9 @@ public class SubmitUserClickListener implements View.OnClickListener {
         @Override
         public void onFailure(Call<UploadResponse> call, Throwable t) {
             Log.e("Upload error:", t.getMessage());
-            textView.setText("Erro!");
+            snackbar.setText(R.string.upload_error);
+            snackbar.show();
+            loadingBar.setIndeterminate(false);
         }
     };
 
@@ -130,17 +131,26 @@ public class SubmitUserClickListener implements View.OnClickListener {
     Callback<User> userCallBack = new Callback<User>() {
         @Override
         public void onResponse(Call<User> call, Response<User> response) {
-            Log.v("Upload", "success");
-            User resp = response.body();
-            preferenceManager.setUserInfo(resp._id, resp.email, resp.photoUrl, resp.name);
-            loadingBar.setIndeterminate(false);
-            textView.setText("Sucesso!");
-
+            if (response.isSuccessful()) {
+                Log.v("Upload", "success");
+                User resp = response.body();
+                preferenceManager.setUserInfo(resp._id, resp.email, resp.photoUrl, resp.name);
+                loadingBar.setIndeterminate(false);
+                snackbar.setText(R.string.upload_success);
+                snackbar.show();
+            } else {
+                Log.i("UPLOAD", "" + response.code());
+                loadingBar.setIndeterminate(false);
+                snackbar.setText(R.string.upload_error);
+                snackbar.show();
+            }
         }
 
         @Override
         public void onFailure(Call<User> call, Throwable t) {
-            textView.setText("Erro!");
+            loadingBar.setIndeterminate(false);
+            snackbar.setText(R.string.upload_error);
+            snackbar.show();
         }
     };
 

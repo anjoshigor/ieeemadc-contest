@@ -85,5 +85,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_maps">Map</string>
+    <string name="upload_error">Error while uploading</string>
+    <string name="upload_success">Uploaded Sucessfully</string>
 
 </resources>
