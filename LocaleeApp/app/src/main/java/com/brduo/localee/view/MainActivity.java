@@ -2,23 +2,18 @@ package com.brduo.localee.view;
 
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.brduo.localee.Manifest;
 import com.brduo.localee.R;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.util.PreferenceManager;
@@ -30,8 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private EventsController controller;
     private Fragment fragment;
+    private  MenuItem mMenuItem;
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNav;
+    private Fragment fragmentPrevious;
 
 
     @Override
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             launchTutorial();
             finish();
         }
-
+        fragmentPrevious = null;
         fragmentManager = getSupportFragmentManager();
         fragment = new EventsListFragment();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -68,14 +65,15 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new EventsMapFragment();
                         break;
                     case R.id.navigation_add:
-                        fragment = new CreateEventFragment();
-                        break;
+                        //fragment = new CreateEventFragment();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     case R.id.navigation_user:
                         fragment = new AccountFragment();
                         break;
                     default:
                         break;
                 }
+                fragmentPrevious = fragment;
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragmentContainer, fragment).commit();
                 return true;

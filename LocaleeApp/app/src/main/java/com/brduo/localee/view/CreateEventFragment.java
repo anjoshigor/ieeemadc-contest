@@ -4,6 +4,7 @@ package com.brduo.localee.view;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -350,4 +351,9 @@ public class CreateEventFragment extends Fragment {
             }
         }
     };
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 }
