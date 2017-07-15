@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.brduo.localee.R;
 import com.brduo.localee.util.PreferenceManager;
-import com.google.android.gms.internal.fi;
 import com.squareup.picasso.Picasso;
 
 

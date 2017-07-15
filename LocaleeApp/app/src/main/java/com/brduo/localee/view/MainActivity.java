@@ -1,6 +1,7 @@
 package com.brduo.localee.view;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,17 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private  MenuItem mMenuItem;
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNav;
-    private Fragment fragmentPrevious;
-
-    private static final String[] LOCATION_PERMS = {
-            android.Manifest.permission.ACCESS_FINE_LOCATION
-    };
+    private   FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         preferenceManager = new PreferenceManager(this);
 
@@ -50,18 +47,32 @@ public class MainActivity extends AppCompatActivity {
             launchTutorial();
         }
 
-        fragmentPrevious = null;
+        controller = EventsController.getInstance();
+        Log.i("EventsListFragment", "Events size: "+controller.getCurrentEvents().size());
+
         fragmentManager = getSupportFragmentManager();
-        fragment = new EventsListFragment();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragmentContainer, fragment).commit();
+        transaction = fragmentManager.beginTransaction();
+
+        if(Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+            } else {
+                fragment = new EventsListFragment();
+                transaction.add(R.id.fragmentContainer, fragment).commit();
+            }
+        } else {
+            fragment = new EventsListFragment();
+            transaction.add(R.id.fragmentContainer, fragment).commit();
+        }
+
 
         bottomNav = (BottomNavigationView) findViewById(R.id.navigation);
         disableShiftMode(bottomNav);
-
-
-        controller = EventsController.getInstance();
-        Log.i("MAIN", "Events size: " + controller.getCurrentEvents().size());
 
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -82,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 }
-                fragmentPrevious = fragment;
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragmentContainer, fragment).commit();
                 return true;
@@ -119,17 +129,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case 1440: {
+            case 1: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //initApp();
+                    fragment = new EventsListFragment();
+                    transaction.add(R.id.fragmentContainer, fragment).commit();
+
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+
                 }
                 return;
             }
@@ -137,5 +148,4 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-    
 }

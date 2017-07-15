@@ -97,7 +97,7 @@ public class EventsListFragment extends Fragment {
                 final TextView mSports = (TextView) dialog.findViewById(R.id.txtview_sports);
                 final TextView mArt = (TextView) dialog.findViewById(R.id.txtview_art);
                 final TextView mMovies = (TextView) dialog.findViewById(R.id.txtview_movies);
-                final TextView mDesign = (TextView) dialog.findViewById(R.id.txtview_design);
+                final TextView mDesign = (TextView) dialog.findViewById(R.id.txtview_movies);
                 final TextView mComedy = (TextView) dialog.findViewById(R.id.txtview_comedy);
                 final TextView mTalks = (TextView) dialog.findViewById(R.id.txtview_talks);
                 final TextView mTech = (TextView) dialog.findViewById(R.id.txtview_tech);
