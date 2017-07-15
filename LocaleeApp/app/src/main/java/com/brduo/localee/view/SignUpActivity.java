@@ -35,5 +35,13 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
         });
+
+        bSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO CHECK IF EXIST
+                // TODO POST
+            }
+        });
     }
 }

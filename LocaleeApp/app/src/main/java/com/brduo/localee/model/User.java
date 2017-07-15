@@ -18,6 +18,14 @@ public class User {
     public Date createdAt;
     public String photoUrl;
 
+
+    public User(String email, String password, String name, String photoUrl) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.photoUrl = photoUrl;
+    }
+
     public User(String _id, String email, String password, String name, List<EventSimplified> eventsCreated, Date updatedAt, Date createdAt, String photoUrl) {
         this._id = _id;
         this.email = email;

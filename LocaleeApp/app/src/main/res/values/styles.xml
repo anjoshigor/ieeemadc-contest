@@ -34,4 +34,24 @@
         <item name="colorControlActivated">@android:color/white</item>
     </style>
 
+    <style name="TextInputLayoutThemeColored" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+    <style name="RadioButtonStyle">
+        <!-- Customize your theme here. -->
+        <item name="android:background">@drawable/alpha_circle_border</item>
+        <item name="android:textColor">@color/black_alpha50</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+    </style>
+
+
 </resources>

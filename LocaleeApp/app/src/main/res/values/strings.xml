@@ -135,9 +135,11 @@
     <string name="sports">Sports</string>
     <string name="comedy">Comedy</string>
     <string name="movies">Movies</string>
+    <string name="tech">Tech</string>
+    <string name="category">Category</string>
     <string name="talks">Talks</string>
     <string name="community">Community</string>
-    <string name="clear_all">Clear all</string>
+    <string name="cancel">Cancel</string>
     <string name="event_name">Event Name</string>
     <string name="event_description">Event Description</string>
     <string name="photo_uploaded">image uploaded successfully!</string>
@@ -146,6 +148,7 @@
     <string name="validation_error">All fields must be filled properly</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
+    <string name="all">All</string>
 
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">

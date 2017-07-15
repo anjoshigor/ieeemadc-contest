@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brduo.localee.R;
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private EditText mEmailView;
     private Button mLoginView;
-    private View mProgressView;
+    private ProgressBar mProgressView;
     private TextView mCreateAccount;
     private PreferenceManager preferenceManager;
     private CoordinatorLayout coordinatorLayout;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         this.mLoginView = (Button) findViewById(R.id.btn_login);
         this.coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coordinator_layout);
         this.mCreateAccount = (TextView) findViewById(R.id.link_signup);
+       // this.mProgressView = (ProgressBar) findViewById(R.id.progress_bar);
 
         mCreateAccount.setOnClickListener(new OnClickListener() {
             @Override
@@ -56,8 +58,11 @@ public class LoginActivity extends AppCompatActivity {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_invalid_password, Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else {
-                    // TODO: retrofit
+                    // TODO GET USER BY EMAIL and PASSWORD or GET ALL USERS
+                    preferenceManager.setUserInfo("sms", "me", "y", "alvemarcos");
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
+                finish();
             }
         });
     }
@@ -68,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() < 3;
+        return password.length() > 3;
     }
 }
 

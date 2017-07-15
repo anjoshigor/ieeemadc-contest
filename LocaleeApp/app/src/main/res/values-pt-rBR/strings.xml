@@ -28,5 +28,7 @@
     <string name="photo_uploaded">imagem inserida com sucesso!</string>
     <string name="photo_not_uploaded">erro ao inserir imagem!</string>
     <string name="start_date">Data de Início</string>
+    <string name="tech">Tecnologia</string>
+    <string name="category">Categoria</string>
     <string name="end_date">Data de Término</string>
 </resources>
