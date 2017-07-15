@@ -100,23 +100,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        String month, address, period;
-        int day, hour;
+
         float distance;
         String distanceString;
 
         Date date = events.get(position).startDate;
         Context imageContext = holder.eventImage.getContext();
-        int charSize = imageContext.getResources().getInteger(R.integer.max_characters);
 
-        //date
-        auxCalendar.setTime(date);
-        month = auxCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
-        day = auxCalendar.get(Calendar.DAY_OF_MONTH);
-        hour = auxCalendar.get(Calendar.HOUR);
-        period = auxCalendar.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.getDefault());
         //distance
-        Location eventLocation = new Location("");
+       /* Location eventLocation = new Location("");
         eventLocation.setLatitude(events.get(position).lat);
         eventLocation.setLatitude(events.get(position).lng);
         distance = userLocation.distanceTo(eventLocation);
@@ -132,7 +124,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             } else {
                 distanceString = (int) distance + "m";
             }
-        }
+        }*/
         //binding
         Picasso.with(imageContext) // Specify the application context
                 .load(events.get(position).photoUrl)// Image url to load from
@@ -141,7 +133,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         //holder.eventAddress.setText(shortenText(events.get(position).getAddress(), charSize));
         holder.eventDate.setText(StringsFormatter.formatDate(events.get(position).startDate) + "\n" +
                 StringsFormatter.formatDate(events.get(position).endDate));
-        holder.distance.setText(distanceString);
+       // holder.distance.setText(distanceString);
         AlphaBackgroundCategory.set(holder.eventCategory, events.get(position).category);
         holder.eventAddress.setText(events.get(position).address);
         holder.eventCategory.setText(events.get(position).category);

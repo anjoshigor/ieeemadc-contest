@@ -97,7 +97,7 @@ public class EventsListFragment extends Fragment {
                 final TextView mSports = (TextView) dialog.findViewById(R.id.txtview_sports);
                 final TextView mArt = (TextView) dialog.findViewById(R.id.txtview_art);
                 final TextView mMovies = (TextView) dialog.findViewById(R.id.txtview_movies);
-                final TextView mDesign = (TextView) dialog.findViewById(R.id.txtview_design);
+                final TextView mOther = (TextView) dialog.findViewById(R.id.txtview_other);
                 final TextView mComedy = (TextView) dialog.findViewById(R.id.txtview_comedy);
                 final TextView mTalks = (TextView) dialog.findViewById(R.id.txtview_talks);
                 final TextView mTech = (TextView) dialog.findViewById(R.id.txtview_tech);
@@ -141,7 +141,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -158,7 +158,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -175,7 +175,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -192,7 +192,7 @@ public class EventsListFragment extends Fragment {
                         enableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -209,7 +209,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         enableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -226,7 +226,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         enableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -234,7 +234,7 @@ public class EventsListFragment extends Fragment {
                     }
                 });
 
-                mDesign.setOnClickListener(new View.OnClickListener() {
+                mOther.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         disableCategory(mAll);
@@ -243,7 +243,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        enableCategory(mDesign);
+                        enableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -259,7 +259,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         enableCategory(mComedy);
                         disableCategory(mTalks);
                         disableCategory(mTech);
@@ -276,7 +276,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         enableCategory(mTalks);
                         disableCategory(mTech);
@@ -293,7 +293,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mSports);
                         disableCategory(mArt);
                         disableCategory(mMovies);
-                        disableCategory(mDesign);
+                        disableCategory(mOther);
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         enableCategory(mTech);
@@ -318,11 +318,11 @@ public class EventsListFragment extends Fragment {
             }
         });
 
-        locationTracker = new LocationTracker(getContext());
+       // locationTracker = new LocationTracker(getContext());
 
-        if (!locationTracker.hasLocation()) {
-            locationTracker.showGPSActivation();
-        }
+        //if (!locationTracker.hasLocation()) {
+        //    locationTracker.showGPSActivation();
+        //}
 
 
         eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
@@ -330,7 +330,7 @@ public class EventsListFragment extends Fragment {
 
         eventListRecycler.setHasFixedSize(true);
         eventListRecycler.setLayoutManager(layoutManager);
-        adapter = new EventAdapter(controller.getCurrentEvents(), locationTracker.getLocation(), getContext());
+        adapter = new EventAdapter(controller.getCurrentEvents(), null, getContext());
         eventListRecycler.setAdapter(adapter);
 
 
