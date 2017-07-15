@@ -39,5 +39,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:11.0.2'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.google.android.gms:play-services-maps:11.0.2'
+    compile 'com.droidninja:filepicker:2.0.6'
     testCompile 'junit:junit:4.12'
 }
