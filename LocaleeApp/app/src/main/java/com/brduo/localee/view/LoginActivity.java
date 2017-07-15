@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.brduo.localee.R;
 import com.brduo.localee.util.PreferenceManager;
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailView;
     private Button mLoginView;
     private View mProgressView;
-    private View mLoginFormView;
+    private TextView mCreateAccount;
     private PreferenceManager preferenceManager;
     private CoordinatorLayout coordinatorLayout;
 
@@ -35,20 +36,27 @@ public class LoginActivity extends AppCompatActivity {
         this.mPasswordView = (EditText) findViewById(R.id.input_password);
         this.mLoginView = (Button) findViewById(R.id.btn_login);
         this.coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coordinator_layout);
+        this.mCreateAccount = (TextView) findViewById(R.id.link_signup);
 
-
+        mCreateAccount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                finish();
+            }
+        });
 
         mLoginView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar snackbar = Snackbar.make(coordinatorLayout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
-                snackbar.show();
                 if(!isEmailValid(mEmailView.getText().toString())) {
-
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_invalid_email, Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 } else if(!isPasswordValid(mPasswordView.getText().toString())) {
-
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_invalid_password, Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 } else {
-
+                    // TODO: retrofit
                 }
             }
         });
@@ -60,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() < 3;
     }
 }
 
