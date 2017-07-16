@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.brduo.localee.R;
 import com.brduo.localee.controller.LocaleeAPI;
+import com.brduo.localee.model.EventCreated;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.EventSimplified;
 import com.brduo.localee.model.User;
@@ -41,7 +42,7 @@ public class AccountFragment extends Fragment {
     private TextView mEmail;
     private TextView mYourEvents;
     private ImageView mImage;
-    private List<EventSimplified> events;
+    private List<EventCreated> events;
 
 
     @Override
@@ -97,7 +98,7 @@ public class AccountFragment extends Fragment {
                 if (response.isSuccessful()) {
                     events = response.body().eventsCreated;
                     Log.i("Events Created", events.toString());
-                    if(events.size() == 0){
+                    if (events.size() == 0) {
                         mYourEvents.setText(R.string.no_events);
                     }
                 } else {
