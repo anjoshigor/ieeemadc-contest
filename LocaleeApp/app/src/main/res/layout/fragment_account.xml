@@ -1,8 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     tools:context="com.brduo.localee.view.AccountFragment">
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="sans-serif-light"
-                android:text="Marcos Alves"
+
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="sans-serif-light"
-                android:text="marcos.alves@cc.ci.ufpb.br"
+
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -84,6 +84,8 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>
