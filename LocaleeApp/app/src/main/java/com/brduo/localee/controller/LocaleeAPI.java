@@ -3,12 +3,6 @@ package com.brduo.localee.controller;
 import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.User;
-import com.brduo.localee.model.UserResponse;
-import com.brduo.localee.model.Users;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -32,6 +26,9 @@ public interface LocaleeAPI {
     Call<EventResponse> getEventsBySingleCategory(@Query("category") String category);
 
     @GET("events?$sort=endDate&$limit=50")
+    Call<EventResponse> getEventsByCategoryAndDate(@Query("category") String category, @Query("endDate[$gte]") String dateFrom, @Query("endDate[$lte]") String dateTo);
+
+    @GET("events?$sort=endDate&$limit=50")
     Call<EventResponse> getEventsByDateBetween(@Query("endDate[$gte]") String dateFrom, @Query("endDate[$lte]") String dateTo);
 
     @GET("events/{id}")
@@ -41,7 +38,7 @@ public interface LocaleeAPI {
     Call<User> getUser(@Path("id") String id);
 
     @GET("users/")
-    Call<Users> getUsers();
+    Call<User> getUserByEmail(@Query("email") String email);
 
     @POST("users/")
     Call<User> postUser(@Body User user);

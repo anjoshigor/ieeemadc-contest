@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brduo.localee.controller.EventAdapter;
@@ -33,6 +35,7 @@ import com.brduo.localee.model.Event;
 import com.brduo.localee.util.EventCategory;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.util.LocationTracker;
+import com.brduo.localee.util.StringsFormatter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -57,14 +60,16 @@ public class EventsListFragment extends Fragment {
     private EventsController controller;
     private String whatSearch;
     private String whenSearch;
+    private ProgressBar progressBar;
+    View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         controller = EventsController.getInstance();
-        Log.i("EventsListFragment", "Events size: "+controller.getCurrentEvents().size());
+        Log.i("EventsListFragment", "Events size: " + controller.getCurrentEvents().size());
 //       setContentView(R.layout.fragment_events_list);
-        final View rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
+        rootView = inflater.inflate(R.layout.fragment_events_list, viewGroup, false);
         whatSearch = "all";
         whenSearch = "today";
 
@@ -73,6 +78,7 @@ public class EventsListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.search_bar_placeholder);
         setHasOptionsMenu(true);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.list_progress);
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,7 +310,8 @@ public class EventsListFragment extends Fragment {
                 btnOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO GET ALL EVENTS BY WHEN (TODAY, WEEK, MONTH) AND WHAT (CATEGORIES)
+                        dialog.dismiss();
+                        getEventsByCategoryAndDate();
                     }
                 });
 
@@ -318,7 +325,7 @@ public class EventsListFragment extends Fragment {
             }
         });
 
-       // locationTracker = new LocationTracker(getContext());
+        // locationTracker = new LocationTracker(getContext());
 
         //if (!locationTracker.hasLocation()) {
         //    locationTracker.showGPSActivation();
@@ -341,6 +348,7 @@ public class EventsListFragment extends Fragment {
     }
 
     void getAllEvents() {
+        progressBar.setIndeterminate(true);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -354,7 +362,7 @@ public class EventsListFragment extends Fragment {
         LocaleeAPI api = retrofit.create(LocaleeAPI.class);
 
         String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
-        Log.i("GETALLEVENTS",dateString);
+        Log.i("GETALLEVENTS", dateString);
         Call<EventResponse> call = api.getEvents(dateString);
         call.enqueue(new Callback<EventResponse>() {
             @Override
@@ -363,8 +371,16 @@ public class EventsListFragment extends Fragment {
                     controller.setCurrentEvents(response.body().data);
                     adapter.events = controller.getCurrentEvents();
                     eventListRecycler.setAdapter(adapter);
+                    progressBar.setIndeterminate(false);
+
+                    if (controller.getCurrentEvents().size() == 0) {
+                        Snackbar snackbar = Snackbar
+                                .make(rootView, R.string.no_events, Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
                 } else {
                     Log.e("RETROFIT", "Erro na listagem de eventos");
+                    progressBar.setIndeterminate(false);
                 }
             }
 
@@ -372,6 +388,7 @@ public class EventsListFragment extends Fragment {
             public void onFailure(Call<EventResponse> call, Throwable t) {
                 t.printStackTrace();
                 Log.e("RETROFIT", t.getMessage());
+                progressBar.setIndeterminate(false);
             }
         });
     }
@@ -384,6 +401,81 @@ public class EventsListFragment extends Fragment {
     private void disableCategory(TextView t) {
         t.setTextColor(t.getResources().getColor(android.R.color.tab_indicator_text));
         t.setBackground(t.getResources().getDrawable(R.drawable.alpha_circle_border));
+    }
+
+
+    public void getEventsByCategoryAndDate() {
+        progressBar.setIndeterminate(true);
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(LocaleeAPI.LOCALEE_BASE_URL)
+                .build();
+
+        LocaleeAPI api = retrofit.create(LocaleeAPI.class);
+        Call<EventResponse> call;
+        String today = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
+        Date dateTo;
+        Calendar cal = Calendar.getInstance();
+        if (whenSearch.equals("today")) {
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            dateTo = StringsFormatter.fromDateToApiFormat(cal.getTime());
+        } else if (whatSearch.equals("week")) {
+            cal.set(Calendar.DAY_OF_WEEK, 7);
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            dateTo = StringsFormatter.fromDateToApiFormat(cal.getTime());
+        } else {
+            cal.set(Calendar.DAY_OF_MONTH, cal.getLeastMaximum(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            dateTo = StringsFormatter.fromDateToApiFormat(cal.getTime());
+        }
+
+        String dateString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(dateTo);
+
+        Log.i("What", whatSearch);
+        Log.i("Today", today);
+        Log.i("dateTo", dateString);
+
+        if (whatSearch.equals("all"))
+            call = api.getEventsByDateBetween(today, dateString);
+        else
+            call = api.getEventsByCategoryAndDate(whatSearch, today, dateString);
+
+        call.enqueue(new Callback<EventResponse>() {
+            @Override
+            public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
+                if (response.isSuccessful()) {
+                    controller.setCurrentEvents(response.body().data);
+                    adapter.events = controller.getCurrentEvents();
+                    eventListRecycler.setAdapter(adapter);
+                    if (controller.getCurrentEvents().size() == 0) {
+                        Snackbar snackbar = Snackbar
+                                .make(rootView, R.string.no_events, Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+                    progressBar.setIndeterminate(false);
+                } else {
+                    Log.e("RETROFIT", "Erro na listagem de eventos");
+                    Log.e("ERRO", "" + response.code());
+                    progressBar.setIndeterminate(false);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EventResponse> call, Throwable t) {
+                t.printStackTrace();
+                Log.e("RETROFIT", t.getMessage());
+                progressBar.setIndeterminate(false);
+            }
+        });
     }
 }
 

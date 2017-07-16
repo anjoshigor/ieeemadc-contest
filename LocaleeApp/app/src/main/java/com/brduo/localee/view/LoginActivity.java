@@ -16,20 +16,20 @@ import android.widget.TextView;
 
 import com.brduo.localee.R;
 import com.brduo.localee.controller.LocaleeAPI;
-import com.brduo.localee.model.Event;
 import com.brduo.localee.model.User;
-import com.brduo.localee.model.Users;
 import com.brduo.localee.util.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,8 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar mProgressView;
     private TextView mCreateAccount;
     private PreferenceManager preferenceManager;
-    private CoordinatorLayout coordinatorLayout;
-    private Users usersModel;
+    private User usersModel;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -52,9 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         this.mEmailView = (EditText) findViewById(R.id.input_email);
         this.mPasswordView = (EditText) findViewById(R.id.input_password);
         this.mLoginView = (Button) findViewById(R.id.btn_login);
-        this.coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coordinator_layout);
         this.mCreateAccount = (TextView) findViewById(R.id.link_signup);
-       // this.mProgressView = (ProgressBar) findViewById(R.id.progress_bar);
+        this.mProgressView = (ProgressBar) findViewById(R.id.progress_bar);
 
         mCreateAccount.setOnClickListener(new OnClickListener() {
             @Override
@@ -67,11 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         mLoginView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgressView.setIndeterminate(true);
                 if(!isEmailValid(mEmailView.getText().toString())) {
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_invalid_email, Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_invalid_email, Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else if(!isPasswordValid(mPasswordView.getText().toString())) {
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_invalid_password, Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_invalid_password, Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else {
                     Gson gson = new GsonBuilder()
@@ -85,36 +84,33 @@ public class LoginActivity extends AppCompatActivity {
                             .build();
                     LocaleeAPI api = retrofit.create(LocaleeAPI.class);
 
-                    Call<Users> call = api.getUsers();
-                    call.enqueue(new Callback<Users>() {
+                    Call<User> call = api.getUserByEmail(mEmailView.getText().toString());
+                    call.enqueue(new Callback<User>() {
                         @Override
-                        public void onResponse(Call<Users> call, Response<Users> response) {
+                        public void onResponse(Call<User> call, Response<User> response) {
                             if (response.isSuccessful()) {
-                                Log.i("RETROFIT", "Sucesso na obtenção de um evento");
+                                Log.i("RETROFIT", "Sucesso na obtenção de um email");
                                 usersModel = response.body();
-
-                                for(User u: usersModel.users) {
-                                    if (u.email.equals(mEmailView.getText()) && u.password.equals(mPasswordView.getText())){
+                                if (usersModel.password.equals(mPasswordView.getText().toString())){
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                 } else {
-                                        Snackbar snackbar = Snackbar.make(coordinatorLayout, R.string.error_incorrect_login, Snackbar.LENGTH_LONG);
-                                        snackbar.show();
-                                    }
-
+                                    Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_incorrect_login, Snackbar.LENGTH_LONG);
+                                    snackbar.show();
                                 }
-                            } else {
-                                Log.e("RETROFIT", "Erro na obtenção de um evento");
+
                             }
                         }
-
                         @Override
-                        public void onFailure(Call<Users> call, Throwable t) {
-                            t.printStackTrace();
-                            Log.e("RETROFIT", t.getMessage());
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.e("RETROFIT", "Erro na obtenção de um evento");
+                            Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_incorrect_login, Snackbar.LENGTH_LONG);
+                            snackbar.show();
                         }
                     });
                 }
+                mProgressView.setIndeterminate(false);
+
             }
         });
     }

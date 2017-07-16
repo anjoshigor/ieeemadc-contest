@@ -16,11 +16,19 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
             android:background="@android:color/white"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            android:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways" />
     </android.support.design.widget.AppBarLayout>
 
+
     <include layout="@layout/content_events_list" />
+
+    <ProgressBar
+        android:id="@+id/list_progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false" />
 
 </RelativeLayout>

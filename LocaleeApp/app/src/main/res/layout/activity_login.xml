@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- thanks https://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/ -->
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/coordinator_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_screen1"
@@ -78,12 +70,11 @@
                 android:gravity="center"
                 android:textSize="16dp"/>
 
-            <!--<ProgressBar-->
-                <!--android:id="@+id/progress_bar"-->
-                <!--style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:indeterminate="false" />-->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false" />
         </LinearLayout>
     </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
