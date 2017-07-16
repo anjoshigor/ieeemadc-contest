@@ -67,4 +67,5 @@
     <string name="when">Quando</string>
     <string name="upload_error">Erro ao fazer o upload</string>
     <string name="upload_success">Upload realizado com sucesso</string>
+    <string name="no_events">Nenhum evento encontrado</string>
 </resources>

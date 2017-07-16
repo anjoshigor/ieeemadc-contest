@@ -31,6 +31,9 @@ public interface LocaleeAPI {
     Call<EventResponse> getEventsBySingleCategory(@Query("category") String category);
 
     @GET("events?$sort=endDate&$limit=50")
+    Call<EventResponse> getEventsByCategoryAndDate(@Query("category") String category, @Query("endDate[$gte]") String dateFrom, @Query("endDate[$lte]") String dateTo);
+
+    @GET("events?$sort=endDate&$limit=50")
     Call<EventResponse> getEventsByDateBetween(@Query("endDate[$gte]") String dateFrom, @Query("endDate[$lte]") String dateTo);
 
     @GET("events/{id}")

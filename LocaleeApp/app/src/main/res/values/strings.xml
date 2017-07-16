@@ -87,5 +87,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="upload_error">Error while uploading</string>
     <string name="upload_success">Uploaded Sucessfully</string>
+    <string name="no_events">No events found</string>
 
 </resources>
