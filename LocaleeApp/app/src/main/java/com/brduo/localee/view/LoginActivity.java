@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.brduo.localee.R;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.User;
+import com.brduo.localee.model.UserResponse;
 import com.brduo.localee.util.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -66,10 +67,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mProgressView.setIndeterminate(true);
-                if(!isEmailValid(mEmailView.getText().toString())) {
+                if (!isEmailValid(mEmailView.getText().toString())) {
                     Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_invalid_email, Snackbar.LENGTH_LONG);
                     snackbar.show();
-                } else if(!isPasswordValid(mPasswordView.getText().toString())) {
+                } else if (!isPasswordValid(mPasswordView.getText().toString())) {
                     Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_invalid_password, Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else {
@@ -84,16 +85,21 @@ public class LoginActivity extends AppCompatActivity {
                             .build();
                     LocaleeAPI api = retrofit.create(LocaleeAPI.class);
 
-                    Call<User> call = api.getUserByEmail(mEmailView.getText().toString());
-                    call.enqueue(new Callback<User>() {
+                    Log.i("EMail", mEmailView.getText().toString());
+                    Call<UserResponse> call = api.getUserByEmail(mEmailView.getText().toString());
+                    call.enqueue(new Callback<UserResponse>() {
                         @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
+                        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                            mProgressView.setIndeterminate(false);
                             if (response.isSuccessful()) {
                                 Log.i("RETROFIT", "Sucesso na obtenção de um email");
-                                usersModel = response.body();
-                                if (usersModel.password.equals(mPasswordView.getText().toString())){
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
+                                usersModel = response.body().data.get(0);
+                                Log.i("USER", usersModel.toString());
+                                if (usersModel.password.equals(mPasswordView.getText().toString())) {
+                                    preferenceManager.setUserInfo(usersModel._id, usersModel.email,
+                                            usersModel.photoUrl, usersModel.name);
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
                                 } else {
                                     Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_incorrect_login, Snackbar.LENGTH_LONG);
                                     snackbar.show();
@@ -101,15 +107,17 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         }
+
                         @Override
-                        public void onFailure(Call<User> call, Throwable t) {
+                        public void onFailure(Call<UserResponse> call, Throwable t) {
                             Log.e("RETROFIT", "Erro na obtenção de um evento");
                             Snackbar snackbar = Snackbar.make(mCreateAccount, R.string.error_incorrect_login, Snackbar.LENGTH_LONG);
                             snackbar.show();
+                            mProgressView.setIndeterminate(false);
                         }
                     });
                 }
-                mProgressView.setIndeterminate(false);
+
 
             }
         });

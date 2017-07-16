@@ -3,6 +3,7 @@ package com.brduo.localee.controller;
 import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.User;
+import com.brduo.localee.model.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -38,7 +39,7 @@ public interface LocaleeAPI {
     Call<User> getUser(@Path("id") String id);
 
     @GET("users/")
-    Call<User> getUserByEmail(@Query("email") String email);
+    Call<UserResponse> getUserByEmail(@Query("email") String email);
 
     @POST("users/")
     Call<User> postUser(@Body User user);
