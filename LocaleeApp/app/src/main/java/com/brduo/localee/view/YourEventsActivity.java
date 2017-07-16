@@ -14,6 +14,7 @@ import com.brduo.localee.controller.EventAdapter;
 import com.brduo.localee.controller.EventSimplifiedAdapter;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.controller.LocaleeAPI;
+import com.brduo.localee.model.EventCreated;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.EventSimplified;
 import com.brduo.localee.model.User;
@@ -37,7 +38,7 @@ public class YourEventsActivity extends AppCompatActivity {
     private EventSimplifiedAdapter adapter;
     private EventsController controller;
     private ProgressBar progressBar;
-    private List<EventSimplified> events;
+    private List<EventCreated> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,10 @@ public class YourEventsActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.list_progress);
         eventListRecycler.setHasFixedSize(true);
         eventListRecycler.setLayoutManager(layoutManager);
-        adapter = new EventSimplifiedAdapter(controller.getCurrentEventsSimpfified(), this);
-        eventListRecycler.setAdapter(adapter);
-
+//        adapter = new EventSimplifiedAdapter(controller.getCurrentEventsCreated(), this);
+//        eventListRecycler.setAdapter(adapter);
 
         getUserInfo(new PreferenceManager(this).getUserId());
-
     }
 
     private void getUserInfo(String id) {
@@ -78,9 +77,9 @@ public class YourEventsActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     events = response.body().eventsCreated;
-//                    controller.setCurrentEventsSimpfified(events);
-//                    adapter.events = controller.getCurrentEventsSimpfified();
-//                    eventListRecycler.setAdapter(adapter);
+                    controller.setCurrentEventsCreated(events);
+                    adapter = new EventSimplifiedAdapter(controller.getCurrentEventsCreated(), YourEventsActivity.this);
+                    eventListRecycler.setAdapter(adapter);
                     Log.i("Events Created", events.toString());
                     if(events.size() == 0){
                         Snackbar snackbar = Snackbar

@@ -303,7 +303,7 @@ public class EventsListFragment extends Fragment {
                         disableCategory(mComedy);
                         disableCategory(mTalks);
                         enableCategory(mTech);
-                        whatSearch = "tech";
+                        whatSearch = "technology";
                     }
                 });
 

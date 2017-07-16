@@ -13,7 +13,7 @@ public class User {
     public String password;
     public String name;
 
-    public List<EventSimplified> eventsCreated;
+    public List<EventCreated> eventsCreated;
     public Date updatedAt;
     public Date createdAt;
     public String photoUrl;
@@ -29,7 +29,7 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public User(String _id, String email, String password, String name, List<EventSimplified> eventsCreated, Date updatedAt, Date createdAt, String photoUrl) {
+    public User(String _id, String email, String password, String name, List<EventCreated> eventsCreated, Date updatedAt, Date createdAt, String photoUrl) {
         this._id = _id;
         this.email = email;
         this.password = password;

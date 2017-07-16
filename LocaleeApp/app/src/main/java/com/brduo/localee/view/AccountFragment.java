@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.brduo.localee.R;
 import com.brduo.localee.controller.EventSimplifiedAdapter;
 import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.controller.LocaleeAPI;
+import com.brduo.localee.model.EventCreated;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.EventSimplified;
 import com.brduo.localee.model.User;
@@ -50,15 +52,21 @@ public class AccountFragment extends Fragment {
     private TextView mEmail;
     private TextView mYourEvents;
     private ImageView mImage;
-    private List<EventSimplified> events;
+    private List<EventCreated> events;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         preferenceManager = new PreferenceManager(getActivity());
+
+        eventListRecycler = (RecyclerView) rootView.findViewById(R.id.event_list_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
+
+        eventListRecycler.setHasFixedSize(true);
+        eventListRecycler.setLayoutManager(layoutManager);
 
         mUserName = (TextView) rootView.findViewById(R.id.user_name);
         mEmail = (TextView) rootView.findViewById(R.id.email);
@@ -112,8 +120,8 @@ public class AccountFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     events = response.body().eventsCreated;
-                    controller.setCurrentEventsSimpfified(events);
-                    adapter.events = controller.getCurrentEventsSimpfified();
+                    controller.setCurrentEventsCreated(events);
+                    adapter = new EventSimplifiedAdapter(controller.getCurrentEventsCreated(), getActivity());
                     eventListRecycler.setAdapter(adapter);
                     Log.i("Events Created", events.toString());
                     if(events.size() == 0){
