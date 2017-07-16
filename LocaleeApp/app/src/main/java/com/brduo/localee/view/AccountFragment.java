@@ -24,6 +24,7 @@ public class AccountFragment extends Fragment {
     private TextView mYourEvents;
     private ImageView mImage;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

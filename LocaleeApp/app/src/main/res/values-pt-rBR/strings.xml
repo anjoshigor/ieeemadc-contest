@@ -65,4 +65,6 @@
     <string name="today">Hoje</string>
     <string name="what">O que</string>
     <string name="when">Quando</string>
+    <string name="upload_error">Erro ao fazer o upload</string>
+    <string name="upload_success">Upload realizado com sucesso</string>
 </resources>

@@ -4,6 +4,7 @@ import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.User;
 import com.brduo.localee.model.UserResponse;
+import com.brduo.localee.model.Users;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,6 +39,9 @@ public interface LocaleeAPI {
 
     @GET("users/{id}")
     Call<User> getUser(@Path("id") String id);
+
+    @GET("users/")
+    Call<Users> getUsers();
 
     @POST("users/")
     Call<User> postUser(@Body User user);

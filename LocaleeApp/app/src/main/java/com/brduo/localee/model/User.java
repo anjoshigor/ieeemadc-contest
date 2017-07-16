@@ -18,6 +18,9 @@ public class User {
     public Date createdAt;
     public String photoUrl;
 
+    public User() {
+
+    }
 
     public User(String email, String password, String name, String photoUrl) {
         this.email = email;
@@ -35,5 +38,19 @@ public class User {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.photoUrl = photoUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "_id='" + _id + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", eventsCreated=" + eventsCreated +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
+                ", photoUrl='" + photoUrl + '\'' +
+                '}';
     }
 }
