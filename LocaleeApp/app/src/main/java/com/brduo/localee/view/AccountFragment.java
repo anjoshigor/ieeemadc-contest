@@ -37,6 +37,13 @@ public class AccountFragment extends Fragment {
         mYourEvents = (TextView) rootView.findViewById(R.id.yourevents);
         mImage = (ImageView) rootView.findViewById(R.id.user_photo);
 
+        mYourEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), YourEventsActivity.class));
+            }
+        });
+
         if (!preferenceManager.isLogged()) {
             launchLogin();
         } else {
