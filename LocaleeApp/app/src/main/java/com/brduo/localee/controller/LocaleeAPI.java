@@ -42,6 +42,9 @@ public interface LocaleeAPI {
     @GET("users/{id}")
     Call<User> getUser(@Path("id") String id);
 
+    @GET("users/")
+    Call<User> getUserByEmail(@Query("email") String email);
+
     @POST("users/")
     Call<User> postUser(@Body User user);
 
