@@ -89,5 +89,6 @@
     <string name="upload_error">Error while uploading</string>
     <string name="upload_success">Uploaded Sucessfully</string>
     <string name="no_events">No events found</string>
+    <string name="clear_all">Clear All</string>
 
 </resources>
