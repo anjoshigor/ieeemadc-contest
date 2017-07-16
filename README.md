@@ -2,6 +2,10 @@
 
 > Find local cultural events on your phone
 
+## Apk
+
+[Link to app-release.apk folder](./LocaleeApp/app/)
+
 ## Promo Video
 
 Click on the picture
