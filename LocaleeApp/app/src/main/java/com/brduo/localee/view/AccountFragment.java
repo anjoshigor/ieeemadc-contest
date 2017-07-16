@@ -6,14 +6,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brduo.localee.R;
+import com.brduo.localee.controller.EventSimplifiedAdapter;
+import com.brduo.localee.controller.EventsController;
 import com.brduo.localee.controller.LocaleeAPI;
 import com.brduo.localee.model.EventResponse;
 import com.brduo.localee.model.EventSimplified;
@@ -37,7 +41,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AccountFragment extends Fragment {
     PreferenceManager preferenceManager;
 
-    private TextView mUserName;
+    private RecyclerView eventListRecycler;
+    private EventSimplifiedAdapter adapter;
+    private EventsController controller;
+    private ProgressBar progressBar;
+
+  private TextView mUserName;
     private TextView mEmail;
     private TextView mYourEvents;
     private ImageView mImage;
@@ -71,7 +80,6 @@ public class AccountFragment extends Fragment {
             Picasso.with(rootView.getContext())
                     .load(preferenceManager.getUserPhotoUrl())
                     .into(mImage);
-
             getUserInfo(preferenceManager.getUserId());
         }
 
@@ -82,6 +90,7 @@ public class AccountFragment extends Fragment {
         startActivity(new Intent(getActivity(), LoginActivity.class));
         getActivity().finish();
     }
+
 
     private void getUserInfo(String id) {
         Gson gson = new GsonBuilder()
@@ -103,9 +112,14 @@ public class AccountFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     events = response.body().eventsCreated;
+                    controller.setCurrentEventsSimpfified(events);
+                    adapter.events = controller.getCurrentEventsSimpfified();
+                    eventListRecycler.setAdapter(adapter);
                     Log.i("Events Created", events.toString());
                     if(events.size() == 0){
-                        mYourEvents.setText(R.string.no_events);
+                        Snackbar snackbar = Snackbar
+                                .make(progressBar, R.string.no_events, Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }
                 } else {
                     Log.e("RETROFIT", "Erro na listagem de eventos");

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.brduo.localee.model.Event;
 import com.brduo.localee.model.EventResponse;
+import com.brduo.localee.model.EventSimplified;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EventsController {
     private static EventsController instance;
     private static List<Event> currentEvents;
+    private static List<EventSimplified> currentEventsSimpfified;
 
     public static EventsController getInstance() {
         if (instance == null) {
@@ -41,6 +43,9 @@ public class EventsController {
     public static List<Event> getCurrentEvents() {
         return currentEvents;
     }
+    public static List<EventSimplified> getCurrentEventsSimpfified() {
+        return currentEventsSimpfified;
+    }
 
     public static Event getEventFromName(String name) {
 
@@ -56,6 +61,10 @@ public class EventsController {
 
     public static void setCurrentEvents(List<Event> events) {
         currentEvents = events;
+    }
+
+    public static void setCurrentEventsSimpfified(List<EventSimplified> events) {
+        currentEventsSimpfified = events;
     }
 
 }

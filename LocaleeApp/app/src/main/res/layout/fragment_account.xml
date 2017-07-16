@@ -84,7 +84,7 @@
 
         </LinearLayout>
 
-
+        <include layout="@layout/content_events_list" />
 
     </LinearLayout>
 
